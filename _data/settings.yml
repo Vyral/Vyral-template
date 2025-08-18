@@ -18,7 +18,7 @@ client:
   name: John Doe
   brand: Company Name, Inc.
   market: Test Market
-  license_number: 0
+  license_number: 
   address: 123 Elm Street
   city: Omaha
   state: Nebraska
