@@ -513,16 +513,15 @@ podcast:
     last_name: Doe
 _inputs:
   font_choices: &font_choices
-    values:
-      - Roboto
-      - Gelasio
-      - Playfair Display
-      - Open Sans
-      - Merriweather
-      - Lato
-      - Inter
-      - Montserrat
-      - Poppins 
+    - Roboto
+    - Gelasio
+    - Playfair Display
+    - Open Sans
+    - Merriweather
+    - Lato
+    - Inter
+    - Montserrat
+    - Poppins 
   client.license_number:
     type: text
   podcast.apple_podcast_link:
@@ -684,15 +683,12 @@ _inputs:
   fonts.header_font:
     type: select
     options:
-      values:
-        - *font_choices
+      values: *font_choices
   fonts.body_font:
     type: select
     options:
-      values:
-        - *font_choices
+      values: *font_choices
   fonts.blog_font:
     type: select
     options:
-      values:
-        - *font_choices
+      values: *font_choices
