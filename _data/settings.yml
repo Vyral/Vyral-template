@@ -18,13 +18,13 @@ client:
   name: John Doe
   brand: Company Name, Inc.
   market: Test Market
-  license_number: 
+  license_number:
   address: 123 Elm Street
   city: Omaha
   state: Nebraska
   zip: '68116'
-  latitude: 
-  longitude: 
+  latitude: '41.2546'
+  longitude: '96.1050'
   phone: 1-999-555-1234
   email: info@companyname.com
   url: www.clientwebsite.com
@@ -34,7 +34,7 @@ client:
     youtube: https://www.youtube.com/
     linkedin: https://www.linkedin.com/
     x: https://x.com/
-    google_my_business: 
+    google_my_business:
     zillow: https://www.zillow.com/
 CTAS:
   - title: YouTube Channel
