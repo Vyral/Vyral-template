@@ -157,4 +157,87 @@
   <!-- JQuery -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+   <!-- Schema Markup for Client Details -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{ site.data.settings.client.name }}",
+    "jobTitle": "{{ site.data.settings.about_me.subheadline }}",
+    "url": "{{ site.data.settings.podcast.client_website_URL }}",
+    "sameAs": [{% if site.data.settings.client.socials.facebook != null %}"{{ site.data.settings.client.socials.facebook }}"{% endif %}{% if site.data.settings.client.socials.instagram != null %},"{{ site.data.settings.client.socials.instagram }}"{% endif %}{% if site.data.settings.client.socials.linkedin != null %},"{{ site.data.settings.client.socials.linkedin }}"{% endif %}{% if site.data.settings.client.socials.x != null %},"{{ site.data.settings.client.socials.x }}"{% endif %}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "{{ site.data.settings.client.brand }}",
+    "image": "{{ site.data.settings.podcast.client_website_URL }}/{{site.data.settings.share_image}}",
+    "url": "{{ site.data.settings.podcast.client_website_URL }}",
+    "telephone": "{{ site.data.settings.client.phone }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ site.data.settings.client.address }}",
+      "addressLocality": "{{ site.data.settings.client.city }}",
+      "addressRegion": "{{ site.data.settings.client.state }}",
+      "postalCode": "{{ site.data.settings.client.zip }}",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "{{ site.data.settings.client.latitude }}",
+      "longitude": "{{ site.data.settings.client.longitude }}"
+    },
+    "priceRange": "$250,000.00 - $6,000,000.00"
+  }
+  </script>
+
+{% if site.data.faqs.show_faqs_section %}
+	{% assign countqa = 0 %}
+	{% for faqdetails in site.data.faqs.faqs_questions %}
+		{% assign countqa = countqa | plus:1 %}
+	{% endfor %}
+
+	{% assign questionscount = 0 %}
+
+  <!-- Query FAQs for posts and next query is for main page FAQs -->
+	<script type="application/ld+json">
+	{
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": [
+    {% if page.is_post %}
+      {% if page.post_faq_enabled %}
+        {% for questionposts in page.post_faqs %}
+          {
+            "@type": "Question",
+            "name": "{{ questionposts.question }}",
+            "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{{ questionposts.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
+            }
+          },
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+
+		{% for questions in site.data.faqs.faqs_questions %}
+			{% assign questionscount = questionscount | plus:1 %}
+			{
+				"@type": "Question",
+				"name": "{{ questions.question }}",
+				"acceptedAnswer": {
+					"@type": "Answer",
+					"text": "{{ questions.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
+				}
+			}{% if questionscount < countqa %},{% endif %}
+		{% endfor %}
+	]
+	}
+	</script>
+{% endif %}
+
 </head>

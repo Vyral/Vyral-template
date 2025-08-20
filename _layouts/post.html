@@ -17,6 +17,12 @@
 					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 						<div class="twelve columns post-content" itemprop="articleBody">
 							{{ content }}
+
+							<!-- Check if post has Q&A -->
+							{% if page.post_faq_enabled %}
+								{% include faqs-post.html %}
+							{% endif %}
+
 							{% include more-posts.html %}
 						</div>
 					</article>

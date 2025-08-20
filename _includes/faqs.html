@@ -1,0 +1,27 @@
+{% if site.data.faqs.show_faqs_section %}
+    <div class="faq-container">
+        <section class="faq">
+            <div class="faqs-header">
+                <h1>Frequently Asked Questions</h2>
+            </div>
+
+            {% for item in site.data.faqs.faqs_questions %}
+                {% if item.show_on_page %}
+                <div class="faq-item">
+                    <h2>{{ item.question }}</h3>
+                    <p>{{ item.answer }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </section>
+    </div>
+{% endif %}
+
+ <script>
+    // Simple toggle for FAQ answers
+    document.querySelectorAll(".faq-item h2").forEach(item => {
+      item.addEventListener("click", () => {
+        item.parentElement.classList.toggle("active");
+      });
+    });
+  </script>

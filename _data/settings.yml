@@ -23,9 +23,19 @@ client:
   city: Omaha
   state: Nebraska
   zip: '68116'
+  latitude: 
+  longitude: 
   phone: 1-999-555-1234
   email: info@companyname.com
   url: www.clientwebsite.com
+  socials:
+    facebook: https://www.facebook.com/
+    instagram: https://www.instagram.com/
+    youtube: https://www.youtube.com/
+    linkedin: https://www.linkedin.com/
+    x: https://x.com/
+    google_my_business: 
+    zillow: https://www.zillow.com/
 CTAS:
   - title: YouTube Channel
     url: '#'

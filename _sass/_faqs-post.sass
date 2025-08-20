@@ -1,0 +1,43 @@
+.faq-container-post
+    width: 100%
+    padding: 3rem
+    margin-bottom: 4rem
+
+    .faq-post
+        width: 100%
+        margin: 0 auto
+        padding: 2rem 
+
+        h1
+            font-size: 4rem
+            font-weight: 700
+            text-align: center
+            margin-bottom: 2rem
+
+        .faq-item-post 
+            border-bottom: 1px solid #ddd
+            padding: 15px 0
+            // border: 2px solid $button-background
+        
+        .faq-item-post h2
+            font-size: 2rem
+            margin-bottom: 10px
+            font-weight: 600
+            cursor: pointer
+        
+        .faq-item-post p
+            display: none
+            margin: 0
+        
+        .faq-item-post.active p
+            display: block
+        
+@media (max-width: 1280px)
+    .faq-container-post
+        .faq-post
+            width: 80%
+
+@media (max-width: 430px)
+    .faq-container-post
+        .faq-post
+            width: 100%
