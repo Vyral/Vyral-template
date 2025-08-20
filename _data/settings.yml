@@ -410,9 +410,9 @@ site_colors:
   sidenav_color: '#0c0c0c'
   sidenav_font_color: '#ffffff'
 fonts:
-  body_font: 'Roboto'
-  header_font: 'Roboto'
-  blog_font: 'Gelasio'
+  body_font: Open Sans
+  header_font: Playfair Display
+  blog_font: Gelasio
 header_shadow:
   h_shadow: 0px
   w_shadow: 2px
@@ -512,7 +512,7 @@ podcast:
     first_name: John
     last_name: Doe
 _inputs:
-  font_choices: &font_choices
+  font_choices:
     - Roboto
     - Gelasio
     - Playfair Display
@@ -521,7 +521,7 @@ _inputs:
     - Lato
     - Inter
     - Montserrat
-    - Poppins 
+    - Poppins
   client.license_number:
     type: text
   podcast.apple_podcast_link:
@@ -683,12 +683,39 @@ _inputs:
   fonts.header_font:
     type: select
     options:
-      values: *font_choices
+      values:
+        - Roboto
+        - Gelasio
+        - Playfair Display
+        - Open Sans
+        - Merriweather
+        - Lato
+        - Inter
+        - Montserrat
+        - Poppins
   fonts.body_font:
     type: select
     options:
-      values: *font_choices
+      values:
+        - Roboto
+        - Gelasio
+        - Playfair Display
+        - Open Sans
+        - Merriweather
+        - Lato
+        - Inter
+        - Montserrat
+        - Poppins
   fonts.blog_font:
     type: select
     options:
-      values: *font_choices
+      values:
+        - Roboto
+        - Gelasio
+        - Playfair Display
+        - Open Sans
+        - Merriweather
+        - Lato
+        - Inter
+        - Montserrat
+        - Poppins
