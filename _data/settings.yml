@@ -410,8 +410,8 @@ site_colors:
   sidenav_color: '#0c0c0c'
   sidenav_font_color: '#ffffff'
 fonts:
-  body_font: Open Sans
-  header_font: Playfair Display
+  body_font: Roboto
+  header_font: Roboto
   blog_font: Gelasio
 header_shadow:
   h_shadow: 0px
