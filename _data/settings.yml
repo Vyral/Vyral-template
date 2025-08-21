@@ -532,10 +532,10 @@ _inputs:
         - loose
         - very loose
         - custom
-    comment: Choose the spacing level for navbar elements (logo, phone, toggle button, USP)
+    comment: Choose the spacing level for navbar (tight is default)
   images.navbar-logo-spacing-custom:
     type: number
-    comment: Custom spacing value in rem units (e.g., 0.5 for 0.5rem). Only used when navbar-logo-spacing is set to 'custom'
+    comment: "Custom spacing (0.0 - 5.0) value in 'rem' units. NOTE: Navbar logo spacing must be set to 'custom'"
     options:
       step: 0.1
       min: 0
