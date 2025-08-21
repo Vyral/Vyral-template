@@ -1,4 +1,4 @@
-<nav role="navigation" class="navbar navbar-fixed-top navbar-andross">
+<nav role="navigation" class="navbar navbar-fixed-top navbar-andross" data-spacing="{{ site.data.settings.images.navbar-logo-spacing | replace: ' ', '-' }}" {% if site.data.settings.images.navbar-logo-spacing == 'custom' %}style="--custom-spacing-value: {{ site.data.settings.images.navbar-logo-spacing-custom }}rem;"{% endif %}>
 	<div class="navbar-header">
 		<a href="{{ site.baseurl }}/" class="navbar-brand visible-xs" data-target="#navbarCollapse"
 			data-toggle="collapse" aria-label="Home">

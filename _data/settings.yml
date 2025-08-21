@@ -396,6 +396,8 @@ images:
   sidenav_logo_path: /img/logo-light.png
   footer_logo_path: /img/logo-light.png
   navbar-logo-width: 129
+  navbar-logo-spacing: tight # tight, loose, very loose, custom
+  navbar-logo-spacing-custom: 5 # Only used when navbar-logo-spacing is 'custom' (just the number, no 'rem')
   desktop-sidenav-logo-width: 200
   mobile-sidenav-logo-width: 125
   footer-logo-width: 250
@@ -522,6 +524,22 @@ _inputs:
     - Inter
     - Montserrat
     - Poppins
+  images.navbar-logo-spacing:
+    type: select
+    options:
+      values:
+        - tight
+        - loose
+        - very loose
+        - custom
+    comment: Choose the spacing level for navbar elements (logo, phone, toggle button, USP)
+  images.navbar-logo-spacing-custom:
+    type: number
+    comment: Custom spacing value in rem units (e.g., 0.5 for 0.5rem). Only used when navbar-logo-spacing is set to 'custom'
+    options:
+      step: 0.1
+      min: 0
+      max: 5
   client.license_number:
     type: text
   podcast.apple_podcast_link:
