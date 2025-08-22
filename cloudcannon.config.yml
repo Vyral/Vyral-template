@@ -49,3 +49,6 @@ collections_config:
     preview:
       text:
         - key: title
+    glob:
+      - "!index.html"
+      - "!index.md"
