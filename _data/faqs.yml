@@ -1,4 +1,5 @@
 show_faqs_section: true
+limit_on_homepage: 3
 faqs_questions:
   - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
     answer: >-
@@ -12,4 +13,21 @@ faqs_questions:
     answer: >-
       Add answer here. This is a placeholder for the FAQ answer section.
     show_on_page: true
+  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+    answer: >-
+      Add answer here. This is a placeholder for the FAQ answer section.
+    show_on_page: true
+  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+    answer: >-
+      Add answer here. This is a placeholder for the FAQ answer section.
+    show_on_page: true
+  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+    answer: >-
+      Add answer here. This is a placeholder for the FAQ answer section.
+    show_on_page: true
+  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+    answer: >-
+      Add answer here. This is a placeholder for the FAQ answer section.
+    show_on_page: true
+
 
