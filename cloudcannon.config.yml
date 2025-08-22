@@ -40,7 +40,8 @@ _snippets:
 collections_config:
   pages:                # keep pages in the site root
     path: /
-    _enabled_editors: [content, visual, data]
+    _enabled_editors:
+      - content
     schemas:
       custom:
         name: Custom Page
