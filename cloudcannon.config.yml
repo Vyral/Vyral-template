@@ -8,6 +8,12 @@ _inputs:
   enclosure_time:
     type: text
     comment: "File size in bytes. Example: 5650889"
+  title:
+    type: text
+    label: Page title
+  subtitle:
+    type: text
+    label: Subtitle
 
 _snippets:
   jekyll_include:
@@ -30,3 +36,15 @@ _snippets:
               - ''
             forbidden_tokens:
               - '%'
+
+collections_config:
+  pages:                # keep pages in the site root
+    path: /
+    _enabled_editors: [visual, data]
+    schemas:
+      custom:
+        name: Custom Page
+        path: .cloudcannon/schemas/custom_page.md
+    preview:
+      text:
+        - key: title

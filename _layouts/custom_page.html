@@ -12,14 +12,14 @@
 			<main>
 				<div class="row post-container custom-page">
 
-					<h1 class="post-title custom-page" itemprop="name headline">{{page.title}}</h1>
+					<h1 class="post-title custom-page" itemprop="name headline" data-cms-bind="#title">{{ page.title }}</h1>
 
 					{% if page.subtitle != null %}
-					<h2 class="post-subtitle custom-page" itemprop="description subheadline">{{page.subtitle}}</h2>
+					<h2 class="post-subtitle custom-page" itemprop="description subheadline" data-cms-bind="#subtitle">{{ page.subtitle }}</h2>
 					{% endif %}
 					
 					<article class="post custom-page" itemscope itemtype="http://schema.org/BlogPosting">
-						<div class="twelve columns post-content custom-page" itemprop="articleBody">
+						<div class="twelve columns post-content custom-page" itemprop="articleBody" data-cms-edit="content">
 							{{ content }}
 						</div>
 					</article>
@@ -27,11 +27,14 @@
 			</main>
 		</div>
 	</div>
-	{% include about.html%}
+	{% include about.html %}
 	{% include benefits.html %}
+	{% include about-me.html %}
 	{% include testimonials.html %}
+	{% include faqs.html %}
 	{% include top-button.html %}
 	{% include bottom-navigation.html %}
+	{% include photo-wall.html %}
 	{% include footer.html %}
 </body>
 
