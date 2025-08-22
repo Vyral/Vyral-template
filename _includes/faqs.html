@@ -1,18 +1,46 @@
-{% if site.data.faqs.show_faqs_section %}
+{%- assign is_preview = include.is_preview_mode | default: true -%}
+{%- if include.is_preview_mode == false -%}
+    {%- assign is_preview = false -%}
+{%- endif -%}
+
+
+{% if site.data.faqs.show_faqs_section and site.data.faqs.faqs_questions.size > 0 %}
     <div class="faq-container">
         <section class="faq">
             <div class="faqs-header">
-                <h1>Frequently Asked Questions</h2>
+                <h1>Frequently Asked Questions</h1>
             </div>
 
-            {% for item in site.data.faqs.faqs_questions %}
-                {% if item.show_on_page %}
-                <div class="faq-item">
-                    <h2>{{ item.question }}</h3>
-                    <p>{{ item.answer }}</p>
+            {% if is_preview %}
+                {% for item in site.data.faqs.faqs_questions | limit: site.data.faqs.limit_on_homepage %}
+                    {% if item.show_on_page %}
+                    <div class="faq-item">
+                        <h2>{{ item.question }}</h2>
+                        <p>{{ item.answer }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for item in site.data.faqs.faqs_questions %}
+                    {% if item.show_on_page %}
+                    <div class="faq-item">
+                        <h2>{{ item.question }}</h2>
+                        <p>{{ item.answer }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            {% if is_preview and site.data.faqs.faqs_questions.size > site.data.faqs.limit_on_homepage %}
+                <div class="cta-button-container">
+                    <div class="cta-button inverted">
+                        <a href="/faq">
+                        <button>View All FAQs</button>
+                        </a>  
+                    </div>
                 </div>
-                {% endif %}
-            {% endfor %}
+            {% endif %}
+            
         </section>
     </div>
 {% endif %}
