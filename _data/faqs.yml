@@ -1,5 +1,7 @@
 show_faqs_section: true
 limit_on_homepage: 3
+show_sidenav_link: true
+show_footer_link: true
 faqs_questions:
   - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
     answer: >-

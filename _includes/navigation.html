@@ -55,6 +55,10 @@
 		<a href="{{ site.baseurl }}{{ site.data.settings.about_me.button.link }}" aria-label="{{ site.data.settings.about_me.button.text }}" target="{{ target }}">{{ site.data.settings.about_me.button.text }}</a>
 		{% endif %}
 
+		{% if site.data.faqs.show_sidenav_link %}
+		<a href="{{ site.baseurl }}/faq" aria-label="Frequently Asked Questions">FAQ</a>
+		{% endif %}
+
 		{% for item in site.data.settings.CTAS %}
 		{% if item.show_sidenav_link %}
 		<a href="{{ site.baseurl }}{{ item.url }}" aria-label="{{ item.title }}" target="_blank">{{ item.title }}</a>
