@@ -3,33 +3,73 @@ limit_on_homepage: 3
 show_sidenav_link: true
 show_footer_link: true
 faqs_questions:
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: What services do you provide?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: Who do you typically work with?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: What industries do you specialize in?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: Where are you located, and do you serve clients remotely?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: What makes you different from other providers?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: How does your service process work from start to finish?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
     show_on_page: true
-  - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
+  - question: Do you have certifications or professional licenses?
     answer: >-
-      Add answer here. This is a placeholder for the FAQ answer section.
+      Answer here...
+    show_on_page: true
+  - question: How much experience do you have?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: What results have your clients achieved with your services?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: Can you share case studies, success stories, or testimonials?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: How much do you charge?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: Do you offer refunds, guarantees, or trial periods?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: How do I get started working with you?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: Do you work with clients outside of your local area?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: How can I contact you (phone, email, live chat)?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: How long does it take to see results?
+    answer: >-
+      Answer here...
+    show_on_page: true
+  - question: Do you offer free consultations?
+    answer: >-
+      Answer here...
     show_on_page: true
 
 
