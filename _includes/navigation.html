@@ -61,7 +61,7 @@
 		{% endif %}
 		{% endfor %}
 
-		{% for page in site.custom_pages %}
+		{% for page in site.pages %}
 		{% if page.has_sidenav_link == true %}
 		<a href="{{ site.baseurl }}{{ page.url }}" aria-label="{{ page.title }}" target="_blank">{{ page.title }}</a>
 		{% endif %}
