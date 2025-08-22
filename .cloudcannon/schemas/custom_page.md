@@ -6,6 +6,7 @@ has_hero_button: false
 hero_button_text: 
 has_sidenav_link: true
 has_footer_link: true
+optional_custom_pages_sidenav_order: 1
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate ut pharetra sit amet aliquam id diam maecenas ultricies. Odio ut sem nulla pharetra diam sit amet nisl suscipit. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Velit egestas dui id ornare. Mattis vulputate enim nulla aliquet. Turpis tincidunt id aliquet risus feugiat in ante metus dictum. Id faucibus nisl tincidunt eget nullam non nisi est sit. A diam sollicitudin tempor id eu nisl nunc. Egestas sed sed risus pretium quam. Fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate. Vestibulum mattis ullamcorper velit sed.
