@@ -49,7 +49,7 @@
 			{% endif %}
 			{% endfor %}
 
-			{% for page in site.custom_pages %}
+			{% for page in site.pages %}
 			{% if page.has_footer_link == true %}
 			<div class="link">
 				<a href="{{ site.baseurl }}{{ page.url }}" aria-label="{{ page.title }}" target="_blank">
