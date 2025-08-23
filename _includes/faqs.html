@@ -8,14 +8,23 @@
     <div class="faq-container">
         <section class="faq">
             <div class="faqs-header">
-                <h1>Frequently Asked Questions</h1>
+                {% if is_preview %}
+                    <h4>Frequently Asked Questions</h4>
+                {% else %}
+                    <h1>Frequently Asked Questions</h1>
+                {% endif %}
             </div>
 
             {% if is_preview %}
                 {% for item in site.data.faqs.faqs_questions | limit: site.data.faqs.limit_on_homepage %}
                     {% if item.show_on_page %}
                     <div class="faq-item">
-                        <h2>{{ item.question }}</h2>
+                        {% if is_preview %}
+                            <h5>{{ item.question }}</h5>
+                        {% else %}
+                            <h2>{{ item.question }}</h2>
+                        {% endif %}
+
                         <p>{{ item.answer }}</p>
                     </div>
                     {% endif %}
@@ -24,7 +33,12 @@
                 {% for item in site.data.faqs.faqs_questions %}
                     {% if item.show_on_page %}
                     <div class="faq-item">
-                        <h2>{{ item.question }}</h2>
+                        {% if is_preview %}
+                            <h5>{{ item.question }}</h5>
+                        {% else %}
+                            <h2>{{ item.question }}</h2>
+                        {% endif %}
+
                         <p>{{ item.answer }}</p>
                     </div>
                     {% endif %}
@@ -45,11 +59,11 @@
     </div>
 {% endif %}
 
- <script>
-    // Simple toggle for FAQ answers
-    document.querySelectorAll(".faq-item h2").forEach(item => {
-      item.addEventListener("click", () => {
-        item.parentElement.classList.toggle("active");
-      });
+<!-- need to select all faq-item h2 and h5 elements -->
+<script>
+    document.querySelectorAll(".faq-item h2, .faq-item h5").forEach(item => {
+        item.addEventListener("click", () => {
+            item.parentElement.classList.toggle("active");
+        });
     });
-  </script>
+</script>
