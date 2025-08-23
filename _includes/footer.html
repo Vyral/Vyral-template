@@ -79,10 +79,13 @@
 		</div>
 
 		<div class="contact-container">
-			<h4><strong>Want to talk to a person?</strong> Call us now at <a
-					href="tel:1-{{ site.data.settings.client.phone }}" aria-label="Phone">{{
-					site.data.settings.client.phone }}</a> for a
-				free, <span style="white-space: nowrap">no-obligation</span> consultation.</h4>
+			<h4>
+				<strong>Want to talk to a person?</strong> Call us now at 
+					<a href="tel:{{ site.data.settings.client.phone_e164 }}" aria-label="Phone">
+						{{ site.data.settings.client.phone_display }}
+					</a> 
+					for a free, <span style="white-space: nowrap">no-obligation</span> consultation.
+			</h4>
 			<p>
 				<b>{{ site.data.settings.client.brand }}</b> |
 
