@@ -1,12 +1,12 @@
 <div class="faq-container-post">
     <section class="faq-post">
         <div class="faqs-header-post">
-            <h1>Frequently Asked Questions</h2>
+            <h3>Frequently Asked Questions</h3>
         </div>
 
         {% for itempost in page.post_faqs %}
             <div class="faq-item-post">
-                <h2>{{ itempost.question }}</h3>
+                <h4>{{ itempost.question }}</h4>
                 <p>{{ itempost.answer }}</p>
             </div>
         {% endfor %}
@@ -16,7 +16,7 @@
 
  <script>
     // Simple toggle for FAQ answers
-    document.querySelectorAll(".faq-item-post h2").forEach(item => {
+    document.querySelectorAll(".faq-item-post h4").forEach(item => {
       item.addEventListener("click", () => {
         item.parentElement.classList.toggle("active");
       });
