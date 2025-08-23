@@ -25,7 +25,8 @@ client:
   zip: '68116'
   latitude: '41.2546'
   longitude: '96.1050'
-  phone: 1-999-555-1234
+  phone_display: "(925) 555-1234"
+  phone_e164: "+19255551234"
   email: info@companyname.com
   url: www.clientwebsite.com
   socials:
@@ -542,6 +543,12 @@ _inputs:
       max: 5
   client.license_number:
     type: text
+  client.phone_display:
+    type: text
+    comment: "(925) 555-1234"
+  client.phone_e164:
+    type: text
+    comment: "+19255551234"
   podcast.apple_podcast_link:
     comment: >-
       Full URL. Example:
