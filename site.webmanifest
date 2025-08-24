@@ -1,14 +1,18 @@
+---
+permalink: /site.webmanifest
+layout: null
+---
+
 {
-    "name": "",
-    "short_name": "",
-    "icons": [
-        {
-            "src": "/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        }
-    ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+  "name": {{ site.data.settings.client.name | default: site.data.settings.title | jsonify }},
+  "short_name": {{ site.data.settings.client.brand | default: site.data.settings.title | truncate: 12, "" | jsonify }},
+  "start_url": {{ "/" | relative_url | jsonify }},
+  "scope": {{ "/" | relative_url | jsonify }},
+  "display": "standalone",
+  "background_color": {{ site.data.settings.site_colors.background_color | default: "#ffffff" | jsonify }},
+  "theme_color": {{ site.data.settings.site_colors.theme_color | default: "#ffffff" | jsonify }},
+  "icons": [
+    { "src": {{ "/android-chrome-192x192.png" | relative_url | jsonify }}, "sizes": "192x192", "type": "image/png" },
+    { "src": {{ "/android-chrome-512x512.png" | relative_url | jsonify }}, "sizes": "512x512", "type": "image/png" }
+  ]
 }
