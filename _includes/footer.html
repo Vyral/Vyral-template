@@ -115,12 +115,12 @@
 		</div>
 
 		<div class="logo">
-			<img src="{{ site.baseurl }}{{ site.data.settings.images.footer_logo_path }}" alt="Company logo" />
+			<img src="{{ site.baseurl }}{{ site.data.settings.images.footer_logo_path }}" alt="Company logo" loading="lazy" />
 		</div>
 
 		{% if site.data.settings.podcast.apple_podcast_link != null %}
 			<div class="podcasts">
-				<a href="{{ site.data.settings.podcast.apple_podcast_link }}" target="_blank"><img src="/uploads/podcast.webp" alt="Apple Podcasts" width="100"/></a>
+				<a href="{{ site.data.settings.podcast.apple_podcast_link }}" target="_blank"><img src="/uploads/podcast.webp" alt="Apple Podcasts" width="100" loading="lazy"/></a>
 			</div>
 		{% endif %}
 
@@ -132,7 +132,7 @@
 					{% for social in site.data.settings.footer.socials %}
 					{% if social.url %}
 					<a href="{{ social.url }}" aria-label="Link to {{ social.url }}" target="_blank">
-						<img src="{{ site.baseurl }}{{ social.icon }}" alt="" width="35" height="35" loading="lazy" />
+						<img src="{{ site.baseurl }}{{ social.icon }}" alt="Link to {{ social.url }}" width="35" height="35" loading="lazy" />
 					</a>
 					{% endif %}
 					{% endfor %}
