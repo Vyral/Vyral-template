@@ -1,0 +1,8 @@
+---
+layout: null
+---
+{% if site.data.faqs.show_faqs_section %}FREQUENTLY ASKED QUESTIONS
+{% for item in site.data.faqs.faqs_questions %}{% if item.show_on_page %}{{ item.question }}
+{{ item.answer }}
+
+{% endif %}{% endfor %}{% endif %}
