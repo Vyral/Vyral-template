@@ -150,7 +150,15 @@
   
   <!-- style-->
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+  {% assign cfg = site.data.settings.client.url | default: site.url %}
+  {% if cfg contains '://' %}
+    {% assign base = cfg %}
+  {% else %}
+    {% assign base = 'https://' | append: cfg %}
+  {% endif %}
+  <link rel="canonical" href="{{ base }}{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
+  
   <link rel="alternate" type="application/rss+xml" title="{{ site.data.settings.title }}" href="{{ site.baseurl }}{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
 
   <!-- FAVICONS -->
