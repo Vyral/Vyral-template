@@ -635,7 +635,7 @@ _inputs:
   about_me.plain_text_for_LLM:
     type: textarea
     options:
-      rows: 10
+      rows: 4
   about.background_image.image:
     type: file
     comment: Background image for About Us section
