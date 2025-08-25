@@ -772,9 +772,11 @@ _inputs:
         - Inter
         - Montserrat
         - Poppins
-  typography.hero:
-    label: Hero
-    comment: "These settings only affect the desktop version of the hero headline and subheadline. Mobile sizes are handled automatically in the code."
+  typography:
+    hero:
+      _options:
+        label: Hero
+        comment: "These settings only affect the desktop version of the hero headline and subheadline. Mobile sizes are handled automatically in the code."
   typography.hero.headline.font_size:
     label: Hero Headline Font Size
     type: number
