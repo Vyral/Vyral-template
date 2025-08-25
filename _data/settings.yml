@@ -772,6 +772,9 @@ _inputs:
         - Inter
         - Montserrat
         - Poppins
+  typography:
+    _options:
+      label: Typography
   typography.hero:
     _options:
       label: Hero
