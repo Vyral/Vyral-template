@@ -529,12 +529,12 @@ podcast:
 typography:
   hero:
     headline:
-      font_size: 4.8rem        # Default: 4.8rem
+      font_size: 4.8           # Default: 4.8rem
       line_height: 1.3         # Default: 1.3
       font_weight: 500         # Default: 500
       letter_spacing: 0        # Default: 0
     subheadline:
-      font_size: 2.4rem        # Default: 2.4rem
+      font_size: 2.4           # Default: 2.4rem
       line_height: 1.5         # Default: 1.5
       font_weight: 400         # Default: 400
       letter_spacing: 0        # Default: 0
