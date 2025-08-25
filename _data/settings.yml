@@ -774,11 +774,11 @@ _inputs:
         - Poppins
   typography.hero.headline.font_size:
     label: Hero Headline Font Size
-    type: text
+    type: number
     comment: "Default: 4.8rem"
   typography.hero.headline.line_height:
     label: Hero Headline Line Height
-    type: text
+    type: number
     comment: "Default: 1.3"
   typography.hero.headline.font_weight:
     label: Hero Headline Font Weight
@@ -786,15 +786,15 @@ _inputs:
     comment: "Default: 500"
   typography.hero.headline.letter_spacing:
     label: Hero Headline Letter Spacing
-    type: text
+    type: number
     comment: "Default: 0"
   typography.hero.subheadline.font_size:
     label: Hero Subheadline Font Size
-    type: text
+    type: number
     comment: "Default: 2.4rem"
   typography.hero.subheadline.line_height:
     label: Hero Subheadline Line Height
-    type: text
+    type: number
     comment: "Default: 1.5"
   typography.hero.subheadline.font_weight:
     label: Hero Subheadline Font Weight
@@ -802,5 +802,5 @@ _inputs:
     comment: "Default: 400"
   typography.hero.subheadline.letter_spacing:
     label: Hero Subheadline Letter Spacing
-    type: text
+    type: number
     comment: "Default: 0"
