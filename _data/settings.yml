@@ -321,6 +321,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-1.mp4
+        upload_date: 2025-01-01
       image: /img/16x9-placeholder.png
       link: '#'
     - text: >-
@@ -331,6 +332,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-2.mp4
+        upload_date: 2025-01-01
       image: /img/16x9-placeholder.png
       link: '#'
     - text: >-
@@ -341,6 +343,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-3.mp4
+        upload_date: 2025-01-01
       image: /img/16x9-placeholder.png
       link: '#'
 photo_wall:

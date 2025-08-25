@@ -270,4 +270,29 @@
 	</script>
 {% endif %}
 
+{% for quote in site.data.settings.testimonials.quotes %}
+  {% if quote.video.enabled %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Client Testimonial – {{ quote.name | escape }}",
+      "description": {{ quote.text | strip | jsonify }},
+      "thumbnailUrl": "{{ site.url }}{{ quote.image }}",
+      "uploadDate": "{{ quote.video.upload_date | default: site.time | date: "%Y-%m-%d" }}",
+      "contentUrl": "{{ site.url }}{{ quote.video.path }}",
+      "embedUrl": "{{ site.url }}{{ quote.link }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ site.client.brand | escape }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ site.url }}{{ site.data.settings.images.navbar_logo_path }}"
+        }
+      }
+    }
+    </script>
+  {% endif %}
+{% endfor %}
+
 </head>
