@@ -67,7 +67,7 @@
       <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.youtube_alternate_image }}">
     {% endif %}
 
-    <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
     
   {% else %}
     <meta property="og:description" content="{{site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}">
@@ -75,13 +75,13 @@
     {% if site.data.settings.podcast.client_website_URL %}
       <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
     {% else %}
-      <meta property="og:image" content="{{ site.baseurl }}{{site.data.settings.share_image}}">
+      <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
     {% endif %} 
 
     {% if site.data.settings.podcast.client_website_URL %}
       <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}">
     {% else %}
-      <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+      <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
     {% endif %} 
 
   {% endif %}
@@ -95,18 +95,18 @@
   {% if site.data.settings.podcast.client_website_URL %}
     <meta property="twitter:domain" content="{{ site.data.settings.podcast.client_website_URL | remove: 'https://' }}">
   {% else %}
-    <meta property="twitter:domain" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+    <meta property="twitter:domain" content="{{ site.data.settings.podcast.client_website_URL | remove: 'https://' }}">
   {% endif %} 
 
   {% if page.is_post %}
-      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
 
   {% else %}
 
     {% if site.data.settings.podcast.client_website_URL %}
       <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}">
     {% else %}
-      <meta property="twitter:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
     {% endif %} 
 
   {% endif %}
@@ -129,7 +129,7 @@
     {% if site.data.settings.podcast.client_website_URL %}
       <meta name="twitter:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
     {% else %}
-      <meta name="twitter:image" content="{{ site.baseurl }}{{site.data.settings.share_image}}">
+      <meta name="twitter:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
     {% endif %} 
 
   {% endif %}
@@ -151,15 +151,15 @@
   <!-- style-->
   <link rel="stylesheet" href="/css/main.css">
 
-  {% assign cfg = site.data.settings.client.url | default: site.url %}
+  {% assign cfg = site.data.settings.client.url | default: site.data.settings.podcast.client_website_URL %}
   {% if cfg contains '://' %}
     {% assign base = cfg %}
   {% else %}
     {% assign base = 'https://' | append: cfg %}
   {% endif %}
-  <link rel="canonical" href="{{ base }}{{ page.url | replace:'index.html','' | prepend: site.baseurl }}">
+  <link rel="canonical" href="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
   
-  <link rel="alternate" type="application/rss+xml" title="{{ site.data.settings.title }}" href="{{ site.baseurl }}{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.data.settings.title }}" href="{{ site.data.settings.podcast.client_website_URL }}/feed.xml">
 
   <!-- FAVICONS -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -193,7 +193,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "{{ site.data.settings.client.brand }}",
-    "image": "{{ site.data.settings.podcast.client_website_URL }}/{{site.data.settings.share_image}}",
+    "image": "{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}",
     "url": "{{ site.data.settings.podcast.client_website_URL }}",
     "telephone": "{{ site.data.settings.client.phone_e164 }}",
     "address": {
@@ -278,16 +278,16 @@
       "@type": "VideoObject",
       "name": "Client Testimonial – {{ quote.name | escape }}",
       "description": {{ quote.text | strip | jsonify }},
-      "thumbnailUrl": "{{ site.url }}{{ quote.image }}",
+      "thumbnailUrl": "{{ site.data.settings.podcast.client_website_URL }}{{ quote.image }}",
       "uploadDate": "{{ quote.video.upload_date | default: site.time | date: "%Y-%m-%d" }}",
-      "contentUrl": "{{ site.url }}{{ quote.video.path }}",
-      "embedUrl": "{{ site.url }}{{ quote.link }}",
+      "contentUrl": "{{ site.data.settings.podcast.client_website_URL }}{{ quote.video.path }}",
+      "embedUrl": "{{ site.data.settings.podcast.client_website_URL }}{{ quote.link }}",
       "publisher": {
         "@type": "Organization",
         "name": "{{ site.client.brand | escape }}",
         "logo": {
           "@type": "ImageObject",
-          "url": "{{ site.url }}{{ site.data.settings.images.navbar_logo_path }}"
+          "url": "{{ site.data.settings.podcast.client_website_URL }}{{ site.data.settings.images.navbar_logo_path }}"
         }
       }
     }
