@@ -25,8 +25,8 @@ client:
   zip: '68116'
   latitude: '41.2546'
   longitude: '96.1050'
-  phone_display: "(925) 555-1234"
-  phone_e164: "+19255551234"
+  phone_display: (925) 555-1234
+  phone_e164: '+19255551234'
   email: info@companyname.com
   url: www.clientwebsite.com
   socials:
@@ -321,7 +321,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-1.mp4
-        upload_date: 2025-01-01
+        upload_date: 2025-01-01 00:00:00
       image: /img/16x9-placeholder.png
       link: '#'
     - text: >-
@@ -332,7 +332,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-2.mp4
-        upload_date: 2025-01-01
+        upload_date: 2025-01-01 00:00:00
       image: /img/16x9-placeholder.png
       link: '#'
     - text: >-
@@ -343,7 +343,7 @@ testimonials:
       video:
         enabled: true
         path: /uploads/testimonial-3.mp4
-        upload_date: 2025-01-01
+        upload_date: 2025-01-01 00:00:00
       image: /img/16x9-placeholder.png
       link: '#'
 photo_wall:
@@ -409,8 +409,8 @@ images:
   sidenav_logo_path: /img/logo-light.png
   footer_logo_path: /img/logo-light.png
   navbar-logo-width: 129
-  navbar-logo-spacing: tight # tight, loose, very loose, custom
-  navbar-logo-spacing-custom: 5 # Only used when navbar-logo-spacing is 'custom' (just the number, no 'rem')
+  navbar-logo-spacing: tight
+  navbar-logo-spacing-custom: 5
   desktop-sidenav-logo-width: 200
   mobile-sidenav-logo-width: 125
   footer-logo-width: 250
@@ -425,9 +425,9 @@ site_colors:
   sidenav_color: '#0c0c0c'
   sidenav_font_color: '#ffffff'
 fonts:
-  header_font: Roboto
-  body_font: Roboto
-  blog_font: Gelasio
+  header_font: Playfair Display
+  body_font: Merriweather
+  blog_font: Poppins
 header_shadow:
   h_shadow: 0px
   w_shadow: 2px
@@ -529,15 +529,15 @@ podcast:
 typography:
   hero:
     headline:
-      font_size: 4.8           # Default: 4.8rem
-      line_height: 1.3         # Default: 1.3
-      font_weight: 500         # Default: 500
-      letter_spacing: 0        # Default: 0
+      font_size: 4.8
+      line_height: 1.3
+      font_weight: 500
+      letter_spacing: 0
     subheadline:
-      font_size: 2.4           # Default: 2.4rem
-      line_height: 1.5         # Default: 1.5
-      font_weight: 400         # Default: 400
-      letter_spacing: 0        # Default: 0
+      font_size: 2.4
+      line_height: 1.5
+      font_weight: 400
+      letter_spacing: 0
 _inputs:
   font_choices:
     - Roboto
@@ -560,7 +560,9 @@ _inputs:
     comment: Choose the spacing level for navbar (tight is default)
   images.navbar-logo-spacing-custom:
     type: number
-    comment: "Custom spacing (0.0 - 5.0) value in 'rem' units. NOTE: Navbar logo spacing must be set to 'custom'"
+    comment: >-
+      Custom spacing (0.0 - 5.0) value in 'rem' units. NOTE: Navbar logo spacing
+      must be set to 'custom'
     options:
       step: 0.1
       min: 0
@@ -569,10 +571,10 @@ _inputs:
     type: text
   client.phone_display:
     type: text
-    comment: "(925) 555-1234"
+    comment: (925) 555-1234
   client.phone_e164:
     type: text
-    comment: "+19255551234"
+    comment: '+19255551234'
   podcast.apple_podcast_link:
     comment: >-
       Full URL. Example:
@@ -775,36 +777,38 @@ _inputs:
   typography.hero:
     label: Hero
     type: object
-    comment: "These settings only affect the desktop version of the hero headline and subheadline."
+    comment: >-
+      These settings only affect the desktop version of the hero headline and
+      subheadline.
   typography.hero.headline.font_size:
     label: Hero Headline Font Size
     type: number
-    comment: "Default: 4.8rem"
+    comment: 'Default: 4.8rem'
   typography.hero.headline.line_height:
     label: Hero Headline Line Height
     type: number
-    comment: "Default: 1.3"
+    comment: 'Default: 1.3'
   typography.hero.headline.font_weight:
     label: Hero Headline Font Weight
     type: number
-    comment: "Default: 500"
+    comment: 'Default: 500'
   typography.hero.headline.letter_spacing:
     label: Hero Headline Letter Spacing
     type: number
-    comment: "Default: 0"
+    comment: 'Default: 0'
   typography.hero.subheadline.font_size:
     label: Hero Subheadline Font Size
     type: number
-    comment: "Default: 2.4rem"
+    comment: 'Default: 2.4rem'
   typography.hero.subheadline.line_height:
     label: Hero Subheadline Line Height
     type: number
-    comment: "Default: 1.5"
+    comment: 'Default: 1.5'
   typography.hero.subheadline.font_weight:
     label: Hero Subheadline Font Weight
     type: number
-    comment: "Default: 400"
+    comment: 'Default: 400'
   typography.hero.subheadline.letter_spacing:
     label: Hero Subheadline Letter Spacing
     type: number
-    comment: "Default: 0"
+    comment: 'Default: 0'
