@@ -425,7 +425,7 @@ site_colors:
   sidenav_color: '#0c0c0c'
   sidenav_font_color: '#ffffff'
 fonts:
-  header_font: Playfair Display
+  header_font: Montserrat
   body_font: Merriweather
   blog_font: Poppins
 header_shadow:
