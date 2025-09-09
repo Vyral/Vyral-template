@@ -2,8 +2,6 @@
 
   <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
-  <link data-cms-original-href="css/main.css" href="/css/main.css?_cchid=d2511d5ab16580ce610a9ba0cdd32672"
-    rel="stylesheet">
 
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}</title>
   <meta name="description"
@@ -148,8 +146,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ blog }}:wght@400;700&amp;family={{ header }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;display=swap">
   {% endif %}
   
-  <!-- style-->
-  <link rel="stylesheet" href="/css/main.css">
+  <!-- Site styles (load last so our rules override libraries) -->
+  <link rel="stylesheet" href="/css/main.css?v={{ site.time | date: '%s' }}">
+
 
   {% assign cfg = site.data.settings.client.url | default: site.data.settings.podcast.client_website_URL %}
   {% if cfg contains '://' %}
