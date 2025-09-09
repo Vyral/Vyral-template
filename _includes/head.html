@@ -1,7 +1,30 @@
 <head>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
   <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+  {% assign header = site.data.settings.fonts.header_font | strip | uri_escape %}
+  {% assign body   = site.data.settings.fonts.body_font   | strip | uri_escape %}
+  {% assign blog   = site.data.settings.fonts.blog_font   | strip | uri_escape %}
+    
+  {% if header != body %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ blog }}:wght@400;700&amp;family={{ header }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family={{ body }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;display=swap">
+  {% else %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ blog }}:wght@400;700&amp;family={{ header }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;display=swap">
+  {% endif %}
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Site styles (load last so our rules override libraries) -->
+  <link rel="stylesheet" href="/css/main.css?v={{ site.time | date: '%s' }}">
 
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}</title>
   <meta name="description"
@@ -9,8 +32,6 @@
 
   <meta content="index, follow" name="robots">
   <meta content="index, follow" name="googlebot">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta charset="utf-8">
   <meta name="copyright" content="Vyral Marketing, Inc." />
 
   <script src="/js/lightbox.js" type="text/javascript" defer></script>
@@ -132,22 +153,7 @@
 
   {% endif %}
 
-  <!-- FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"> 
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-   
-  {% assign header = site.data.settings.fonts.header_font | strip | uri_escape %}
-  {% assign body   = site.data.settings.fonts.body_font   | strip | uri_escape %}
-  {% assign blog   = site.data.settings.fonts.blog_font   | strip | uri_escape %}
-    
-  {% if header != body %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ blog }}:wght@400;700&amp;family={{ header }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;family={{ body }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;display=swap">
-  {% else %}
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ blog }}:wght@400;700&amp;family={{ header }}:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500;1,700&amp;display=swap">
-  {% endif %}
-  
-  <!-- Site styles (load last so our rules override libraries) -->
-  <link rel="stylesheet" href="/css/main.css?v={{ site.time | date: '%s' }}">
+
 
 
   {% assign cfg = site.data.settings.client.url | default: site.data.settings.podcast.client_website_URL %}
@@ -171,8 +177,7 @@
   <meta name="msapplication-config" content="/browserconfig.xml">
   <meta name="theme-color" content="{{site.data.settings.site_colors.theme_color}}">
 
-  <!-- JQuery -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
    <!-- Schema Markup for Client Details -->
   <script type="application/ld+json">
