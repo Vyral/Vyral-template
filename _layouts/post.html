@@ -11,10 +11,9 @@
 
 			<main>
 				<div class="row post-container">
-
-					<h1 class="post-title" itemprop="name headline">{{page.title}}</h1>
-					<h2 class="post-subtitle" itemprop="description subheadline">{{page.subtitle}}</h2>
 					<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+						<h1 class="post-title" itemprop="headline">{{page.title}}</h1>
+						<h2 class="post-subtitle" itemprop="abstract">{{page.subtitle}}</h2>
 						<div class="twelve columns post-content" itemprop="articleBody">
 							{{ content }}
 

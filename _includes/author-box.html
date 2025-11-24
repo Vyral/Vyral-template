@@ -1,17 +1,29 @@
 <div class="author-container">
     <div class="image">
-        <img src="{{ site.baseurl }}{{ site.data.settings.blog.author.image }}" alt="{{ site.data.settings.blog.author.name }} profile image" loading="eager" />
+        <img src="{{ site.baseurl }}{{ site.data.settings.blog.author.image }}" alt="{{ site.data.settings.blog.author.name }} profile image" />
     </div>
 
     <div class="author-info">
         {% if site.data.settings.blog.author.name_link != null %}
-        <p class="name">By <a href="{{ site.data.settings.blog.author.name_link }}" target="_blank">{{ site.data.settings.blog.author.name }}</a></p>
+        <p class="name">By 
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person"> 
+                <a itemprop="url" href="{{ site.data.settings.blog.author.name_link }}" target="_blank"></a>
+                    <span itemprop="name">
+                        {{ site.data.settings.blog.author.name }}
+                    </span>
+                </a>
+            </span>
+        </p>
         {% else %}
-        <p class="name">By {{ site.data.settings.blog.author.name }}</p>
+        <p class="name">By 
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person"> 
+                <span itemprop="name">
+                    {{ site.data.settings.blog.author.name }}
+                </span>
+            </span>   
+        </p>
         {% endif %}
 
         <p class="bio">{{ site.data.settings.blog.author.bio }}</p>
     </div>
-
-
 </div>
