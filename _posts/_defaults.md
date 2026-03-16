@@ -3,9 +3,10 @@ layout: post
 date:
 title:
 subtitle:
-tags:
 excerpt:
 pullquote:
+tags:
+featured: false
 hidden: false
 use_youtube_image: true
 youtube_alternate_image:

@@ -3,9 +3,10 @@ layout: post
 date: 2026-03-17 07:00:00
 title:
 subtitle:
-tags:
 excerpt:
 pullquote:
+tags:
+featured: false
 hidden: false
 use_youtube_image: true
 youtube_alternate_image:
