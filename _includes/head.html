@@ -238,7 +238,7 @@
           "name": "{{ questions.question }}",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "{{ questions.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
+            "text": "{{ questions.answer | strip_html | strip_newlines | remove: '"' | replace: '\"', '\'' }}"
           }
         }{% if questionscount < countqa %},{% endif %}
       {% endfor %}
@@ -268,7 +268,7 @@
               "name": "{{ questionposts.question }}",
               "acceptedAnswer": {
               "@type": "Answer",
-              "text": "{{ questionposts.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
+              "text": "{{ questionposts.answer | strip_html | strip_newlines | remove: '"' | replace: '\"', '\'' }}"
               }
             }{% unless forloop.last %},{% endunless %}
           {% endfor %}
