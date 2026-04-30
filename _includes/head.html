@@ -224,39 +224,13 @@
 	{% endfor %}
 
 	{% assign questionscount = 0 %}
-
-  <!-- Query FAQs for posts and next query is for main page FAQs -->
+  
+  <!-- Query FAQs for main page FAQs -->
 	<script type="application/ld+json">
 	{
 	"@context": "https://schema.org",
 	"@type": "FAQPage",
 	"mainEntity": [
-    {% if page.layout == 'post' %}
-      {% if page.post_faq_enabled %}
-        {% for questionposts in page.post_faqs %}
-          {
-            "@type": "Question",
-            "name": "{{ questionposts.question }}",
-            "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "{{ questionposts.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
-            }
-          }{% unless forloop.last %},{% endunless %}
-        {% endfor %}
-      {% else %}
-        {% for questions in site.data.faqs.faqs_questions %}
-          {% assign questionscount = questionscount | plus:1 %}
-          {
-            "@type": "Question",
-            "name": "{{ questions.question }}",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "{{ questions.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
-            }
-          }{% if questionscount < countqa %},{% endif %}
-        {% endfor %}
-      {% endif %}
-    {% else %}
       {% for questions in site.data.faqs.faqs_questions %}
         {% assign questionscount = questionscount | plus:1 %}
         {
@@ -268,10 +242,40 @@
           }
         }{% if questionscount < countqa %},{% endif %}
       {% endfor %}
-    {% endif %}
 	]
 	}
 	</script>
+{% endif %}
+
+{% if page.layout == 'post' %}
+  {% assign countqa = 0 %}
+	{% for faqdetails in page.post_faqs %}
+		{% assign countqa = countqa | plus:1 %}
+	{% endfor %}
+
+	{% assign questionscount = 0 %}
+
+  {% if page.post_faq_enabled %}
+    <!-- Query FAQs for posts -->
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for questionposts in page.post_faqs %}
+            {
+              "@type": "Question",
+              "name": "{{ questionposts.question }}",
+              "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{{ questionposts.answer | strip_html | strip_newlines | replace: '\"', '\'' }}"
+              }
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+    ]     
+    }
+    </script>
+  {% endif %}
 {% endif %}
 
 {% for quote in site.data.settings.testimonials.quotes %}
