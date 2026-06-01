@@ -6,6 +6,7 @@ subtitle:
 excerpt:
 pullquote:
 tags:
+  - Real Estate
 featured: false
 hidden: false
 use_youtube_image: true
