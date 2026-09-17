@@ -217,44 +217,40 @@
   }
   </script>
 
-{% if site.data.faqs.show_faqs_section %}
-	{% assign countqa = 0 %}
-	{% for faqdetails in site.data.faqs.faqs_questions %}
-		{% assign countqa = countqa | plus:1 %}
-	{% endfor %}
+{%- comment -%}
+  FAQPage schema. Built with `jsonify`, which emits the surrounding quotes and
+  escapes backslashes, quotes and control characters correctly. Do NOT hand-quote
+  these values: answers contain markdown escapes such as `5\.0`, and a raw `\.`
+  is not a valid JSON escape, which invalidates the whole block.
 
-	{% assign questionscount = 0 %}
-  
+  markdownify -> strip_html turns the markdown answer into plain text (so `**bold**`
+  does not leak in), and normalize_whitespace collapses the resulting newlines into
+  single spaces (so paragraphs do not jam together as "reviews.**As of September").
+{%- endcomment -%}
+{%- assign faq_schema_items = site.data.faqs.faqs_questions | where: "show_on_page", true -%}
+{%- if site.data.faqs.show_faqs_section and faq_schema_items.size > 0 %}
   <!-- Query FAQs for main page FAQs -->
-	<script type="application/ld+json">
-	{
-	"@context": "https://schema.org",
-	"@type": "FAQPage",
-	"mainEntity": [
-      {% for questions in site.data.faqs.faqs_questions %}
-        {% assign questionscount = questionscount | plus:1 %}
-        {
-          "@type": "Question",
-          "name": "{{ questions.question }}",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "{{ questions.answer | strip_html | strip_newlines | remove: '"' | replace: '\"', '\'' }}"
-          }
-        }{% if questionscount < countqa %},{% endif %}
-      {% endfor %}
-	]
-	}
-	</script>
-{% endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- for questions in faq_schema_items %}
+      {
+        "@type": "Question",
+        "name": {{ questions.question | markdownify | strip_html | normalize_whitespace | strip | jsonify }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ questions.answer | markdownify | strip_html | normalize_whitespace | strip | jsonify }}
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endfor %}
+    ]
+  }
+  </script>
+{%- endif -%}
 
 {% if page.layout == 'post' %}
-  {% assign countqa = 0 %}
-	{% for faqdetails in page.post_faqs %}
-		{% assign countqa = countqa | plus:1 %}
-	{% endfor %}
-
-	{% assign questionscount = 0 %}
-
   {% if page.post_faq_enabled %}
     <!-- Query FAQs for posts -->
     <script type="application/ld+json">
@@ -265,10 +261,10 @@
       {% for questionposts in page.post_faqs %}
             {
               "@type": "Question",
-              "name": "{{ questionposts.question }}",
+              "name": {{ questionposts.question | markdownify | strip_html | normalize_whitespace | strip | jsonify }},
               "acceptedAnswer": {
               "@type": "Answer",
-              "text": "{{ questionposts.answer | strip_html | strip_newlines | remove: '"' | replace: '\"', '\'' }}"
+              "text": {{ questionposts.answer | markdownify | strip_html | normalize_whitespace | strip | jsonify }}
               }
             }{% unless forloop.last %},{% endunless %}
           {% endfor %}
