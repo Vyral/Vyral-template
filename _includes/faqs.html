@@ -1,10 +1,24 @@
-{%- assign is_preview = include.is_preview_mode | default: true -%}
+{%- comment -%}
+  FAQ section — shared by the homepage preview and the full /faq page.
+  Pass is_preview_mode: false from /faq; it defaults to true (preview).
+{%- endcomment -%}
+
+{%- assign is_preview = true -%}
 {%- if include.is_preview_mode == false -%}
     {%- assign is_preview = false -%}
 {%- endif -%}
 
+{%- comment -%} Only items flagged show_on_page, so the limit counts visible items. {%- endcomment -%}
+{%- assign visible_faqs = site.data.faqs.faqs_questions | where: "show_on_page", true -%}
 
-{% if site.data.faqs.show_faqs_section and site.data.faqs.faqs_questions.size > 0 %}
+{%- comment -%} Homepage shows a capped subset; /faq shows everything. {%- endcomment -%}
+{%- if is_preview -%}
+    {%- assign faq_limit = site.data.faqs.limit_on_homepage | default: 3 -%}
+{%- else -%}
+    {%- assign faq_limit = visible_faqs.size -%}
+{%- endif -%}
+
+{% if site.data.faqs.show_faqs_section and visible_faqs.size > 0 %}
     <div class="faq-container">
         <section class="faq">
             <div class="faqs-header">
@@ -15,55 +29,59 @@
                 {% endif %}
             </div>
 
-            {% if is_preview %}
-                {% for item in site.data.faqs.faqs_questions | limit: site.data.faqs.limit_on_homepage %}
-                    {% if item.show_on_page %}
-                    <div class="faq-item">
-                        {% if is_preview %}
-                            <h5>{{ item.question }}</h5>
-                        {% else %}
-                            <h2>{{ item.question }}</h2>
-                        {% endif %}
-
-                        <p>{{ item.answer }}</p>
-                    </div>
+            {% for item in visible_faqs limit: faq_limit %}
+                <div class="faq-item">
+                    {% if is_preview %}
+                        <h5 role="button" tabindex="0" aria-expanded="false">{{ item.question }}</h5>
+                    {% else %}
+                        <h2 role="button" tabindex="0" aria-expanded="false">{{ item.question }}</h2>
                     {% endif %}
-                {% endfor %}
-            {% else %}
-                {% for item in site.data.faqs.faqs_questions %}
-                    {% if item.show_on_page %}
-                    <div class="faq-item">
-                        {% if is_preview %}
-                            <h5>{{ item.question }}</h5>
-                        {% else %}
-                            <h2>{{ item.question }}</h2>
-                        {% endif %}
 
-                        <p>{{ item.answer }}</p>
+                    <div class="faq-answer">
+                        {{ item.answer | markdownify }}
                     </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
+                </div>
+            {% endfor %}
 
-            {% if is_preview and site.data.faqs.faqs_questions.size > site.data.faqs.limit_on_homepage %}
+            {% if is_preview and visible_faqs.size > faq_limit %}
                 <div class="cta-button-container">
                     <div class="cta-button inverted">
                         <a href="/faq">
-                        <button>View All FAQs</button>
-                        </a>  
+                            <button>View All FAQs</button>
+                        </a>
                     </div>
                 </div>
             {% endif %}
-            
+
         </section>
     </div>
 {% endif %}
 
-<!-- need to select all faq-item h2 and h5 elements -->
 <script>
-    document.querySelectorAll(".faq-item h2, .faq-item h5").forEach(item => {
-        item.addEventListener("click", () => {
-            item.parentElement.classList.toggle("active");
-        });
-    });
+  // Guard: this include can appear more than once on a page, and a second
+  // delegated listener would toggle twice and cancel itself out.
+  if (!window.__vyralFaqAccordionBound) {
+    window.__vyralFaqAccordionBound = true;
+
+    (function () {
+      function toggleFaq(questionEl) {
+        var item = questionEl.parentElement;
+        var isOpen = item.classList.toggle('active');
+        questionEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+
+      document.addEventListener('click', function (event) {
+        var questionEl = event.target.closest('.faq-item h2, .faq-item h5');
+        if (questionEl) toggleFaq(questionEl);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        var questionEl = event.target.closest('.faq-item h2, .faq-item h5');
+        if (!questionEl) return;
+        event.preventDefault(); // stop Space from scrolling the page
+        toggleFaq(questionEl);
+      });
+    })();
+  }
 </script>

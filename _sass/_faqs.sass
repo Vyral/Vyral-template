@@ -7,13 +7,22 @@
     align-items: flex-start
 
     .faq
-        width: auto
-        max-width: 800px
+        width: 80%
+        // max-width: 800px
         min-width: fit-content
         margin-bottom: 4rem
         display: flex
         flex-direction: column
         align-items: center
+        
+        /* Hide answers by default */
+        .faq-item .faq-answer
+            display: none
+            
+        /* Show answers when the parent has the 'active' class */
+        .faq-item.active .faq-answer 
+            display: block
+            margin-top: 1rem
 
         h1, h4
             font-size: 4rem
@@ -25,8 +34,9 @@
         .faq-item 
             border-bottom: 1px solid #ddd
             padding: 15px 0
-            width: 100%
+            width: 80%
             // border: 2px solid $button-background
+
         
         .faq-item h2, .faq-item h5
             font-size: 2rem
@@ -39,9 +49,13 @@
         .faq-item p
             display: none
             margin: 0
-        
+            margin-bottom: 1.5rem
+            line-height: 1.6
+
         .faq-item.active p
             display: block
+
+        
         
         // .faq-item
         //     padding: 1.5rem
