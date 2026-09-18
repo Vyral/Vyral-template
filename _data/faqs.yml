@@ -71,5 +71,9 @@ faqs_questions:
     answer: >-
       Answer here...
     show_on_page: true
+_inputs:
+  answer:
+    type: markdown
+    comment: The detailed answer for the FAQ.
 
 
