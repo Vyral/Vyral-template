@@ -174,13 +174,26 @@ $bio-reading-width: 90rem
 .post-content.bio-body
   padding: 0
 
-  > h2:first-child
+  // Section headings carry the accent rule whether the writer used ## or ###.
+  // ## is correct for heading hierarchy (the page's h1 is the bio headline),
+  // but ### is common in supplied copy and must never render unstyled.
+  > h2:first-child,
+  > h3:first-child
     margin-top: 0
 
-  h2
+  h2,
+  h3
+    font-family: $blogfont
+    font-weight: 600
     margin: 4.5rem 0 1.8rem
     padding-bottom: 1.2rem
     border-bottom: 2px solid $bio-accent
+
+  h2
+    font-size: 2.6rem
+
+  h3
+    font-size: 2.3rem
 
   ul
     margin-bottom: 2.5rem

@@ -52,7 +52,7 @@
 			if (reduce && reduce.matches) return;
 			if (!document.querySelectorAll || !window.requestAnimationFrame) return;
 
-			var fade = document.querySelectorAll('.bio-hero-text, .bio-hero-image, .bio-hero-buttons, .bio-body > h2, .bio-areas .headline, .bio-fact-box .headline');
+			var fade = document.querySelectorAll('.bio-hero-text, .bio-hero-image, .bio-hero-buttons, .bio-body > h2, .bio-body > h3, .bio-areas .headline, .bio-fact-box .headline');
 			var stagger = document.querySelectorAll('.bio-stats, .bio-areas-list, .bio-facts');
 			if (!fade.length && !stagger.length) return;
 
