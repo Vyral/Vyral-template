@@ -1,0 +1,25 @@
+{% comment %}
+  Bio page "areas served" grid. Driven by page.areas_served in the front matter.
+  Renders nothing when the list is empty.
+{% endcomment %}
+
+{% if page.areas_served.size > 0 %}
+<section class="bio-areas">
+  <div class="bio-areas-container">
+
+    <div class="headline">
+      <h4>{{ page.areas_served_headline | default: 'Areas Served' }}</h4>
+      {% if page.areas_served_subheadline %}
+      <h5>{{ page.areas_served_subheadline }}</h5>
+      {% endif %}
+    </div>
+
+    <ul class="bio-areas-list">
+      {% for area in page.areas_served %}
+      <li>{{ area }}</li>
+      {% endfor %}
+    </ul>
+
+  </div>
+</section>
+{% endif %}

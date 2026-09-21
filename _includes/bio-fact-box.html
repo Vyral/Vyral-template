@@ -1,0 +1,48 @@
+{% comment %}
+  Fact Box — a cited label/value table shown after the long-form bio.
+
+  Driven by page.fact_box in the page's front matter. Each row takes:
+    fact_label       (required) the fact's name, e.g. "Years of Experience"
+    fact_value       (required) the fact itself
+    fact_source      (optional) who says so, e.g. "Zillow" or "RealTrends Verified 2025"
+    fact_source_url  (optional) a link for that source; without it the source is
+                                shown as plain text instead of a link
+
+  Renders nothing at all when the list is empty, so a client site that has not
+  filled it in yet simply does not show the section.
+{% endcomment %}
+
+{% if page.fact_box.size > 0 %}
+<section class="bio-fact-box">
+  <div class="bio-fact-box-container">
+
+    <div class="headline">
+      <h4>{{ page.fact_box_headline | default: 'Fact Box' }}</h4>
+      {% if page.fact_box_intro %}
+      <h5>{{ page.fact_box_intro }}</h5>
+      {% endif %}
+    </div>
+
+    <dl class="bio-facts">
+      {% for fact in page.fact_box %}
+      <div class="bio-fact">
+        <dt>{{ fact.fact_label }}</dt>
+        <dd>
+          <span class="bio-fact-value">{{ fact.fact_value }}</span>
+          {% if fact.fact_source %}
+          <span class="bio-fact-source">
+            {% if fact.fact_source_url %}
+            <a href="{{ fact.fact_source_url }}" target="_blank" rel="noreferrer noopener">{{ fact.fact_source }}</a>
+            {% else %}
+            {{ fact.fact_source }}
+            {% endif %}
+          </span>
+          {% endif %}
+        </dd>
+      </div>
+      {% endfor %}
+    </dl>
+
+  </div>
+</section>
+{% endif %}

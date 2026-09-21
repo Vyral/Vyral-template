@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+{% include head.html %}
+
+<body>
+
+	{% include navigation.html %}
+
+	<main>
+
+		{% include bio-hero.html %}
+
+		<div class="container-fluid bio-content">
+			<div class="bio-content-container">
+				<article class="post bio-post" itemscope itemtype="https://schema.org/Person">
+					<div class="post-content bio-body" itemprop="description" data-cms-edit="content">
+						{{ content }}
+					</div>
+				</article>
+			</div>
+		</div>
+
+		{% include bio-fact-box.html %}
+		{% include bio-areas.html %}
+		{% include bio-stats.html %}
+
+	</main>
+
+	{% if page.show_about_section %}{% include about.html %}{% endif %}
+	{% if page.show_benefits_section %}{% include benefits.html %}{% endif %}
+	{% if page.show_about_me_section %}{% include about-me.html %}{% endif %}
+	{% if page.show_faqs_section %}{% include faqs.html is_preview_mode = true %}{% endif %}
+	{% if page.show_testimonials_section %}{% include testimonials.html %}{% endif %}
+
+	{% include top-button.html %}
+	{% include bottom-navigation.html %}
+
+	{% if page.show_photo_wall_section %}{% include photo-wall.html %}{% endif %}
+
+	{% include footer.html %}
+
+	{% comment %}
+	  Progressive reveal for this page's sections. Opt-in by design: the CSS in
+	  _sass/_bio.sass only applies once this script adds `bio-reveal-on` to <html>,
+	  so with JS off, on an old browser, or for a visitor who prefers reduced
+	  motion, the page simply renders fully visible.
+	{% endcomment %}
+	<script>
+		(function () {
+			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+			if (reduce && reduce.matches) return;
+			if (!document.querySelectorAll || !window.requestAnimationFrame) return;
+
+			var fade = document.querySelectorAll('.bio-hero-text, .bio-hero-image, .bio-hero-buttons, .bio-body > h2, .bio-areas .headline, .bio-fact-box .headline');
+			var stagger = document.querySelectorAll('.bio-stats, .bio-areas-list, .bio-facts');
+			if (!fade.length && !stagger.length) return;
+
+			var i, targets = [];
+			for (i = 0; i < fade.length; i++) { fade[i].className += ' bio-reveal'; targets.push(fade[i]); }
+			for (i = 0; i < stagger.length; i++) targets.push(stagger[i]);
+
+			document.documentElement.className += ' bio-reveal-on';
+
+			var ticking = false;
+			var heroImage = document.querySelector('.bio-hero-image');
+			var heroReady = true;
+
+			// Reveal anything whose top has risen past 92% of the viewport. Using the
+			// rect (rather than an IntersectionObserver entry) means elements the
+			// visitor jumps straight past — anchor links, end-key, fast scroll — are
+			// caught too, instead of being stranded at opacity 0.
+			function sweep() {
+				ticking = false;
+				var limit = (window.innerHeight || document.documentElement.clientHeight) * 0.92;
+				var pending = [];
+				for (var k = 0; k < targets.length; k++) {
+					if (targets[k] === heroImage && !heroReady) pending.push(targets[k]);
+					else if (targets[k].getBoundingClientRect().top < limit) targets[k].className += ' is-visible';
+					else pending.push(targets[k]);
+				}
+				targets = pending;
+				if (!targets.length) {
+					window.removeEventListener('scroll', onScroll);
+					window.removeEventListener('resize', onScroll);
+				}
+			}
+
+			function onScroll() {
+				if (ticking) return;
+				ticking = true;
+				window.requestAnimationFrame(sweep);
+			}
+
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('resize', onScroll);
+			window.addEventListener('load', onScroll);
+
+			// The portrait is above the fold, so it would otherwise reveal while the
+			// image bytes are still arriving — an empty frame fading in, then the photo
+			// popping in afterwards. Hold that one element back until the image has
+			// actually decoded, with a timeout so a failed load can never strand it.
+			var heroImg = heroImage && heroImage.querySelector('img');
+			if (heroImg && !heroImg.complete) {
+				heroReady = false;
+				var release = function () {
+					if (heroReady) return;
+					heroReady = true;
+					onScroll();
+				};
+				heroImg.addEventListener('load', release);
+				heroImg.addEventListener('error', release);
+				window.setTimeout(release, 3000);
+			}
+
+			// Paint the hidden state once before flipping anything on, otherwise the
+			// browser collapses both states into a single style resolution and the
+			// above-the-fold items snap in with no transition at all.
+			void document.body.offsetHeight;
+			window.requestAnimationFrame(function () {
+				window.requestAnimationFrame(onScroll);
+			});
+		})();
+	</script>
+
+	{% comment %} ProfilePage / Person structured data for this bio page. {% endcomment %}
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "ProfilePage",
+		"mainEntity": {
+			"@type": "Person",
+			"name": "{{ site.data.settings.client.name }}",
+			"jobTitle": "{{ page.subtitle | default: site.data.settings.about_me.subheadline }}",
+			"description": {{ page.excerpt | strip_html | strip_newlines | strip | jsonify }},
+			"image": "{{ site.data.settings.podcast.client_website_URL }}{{ page.bio_image }}",
+			"url": "{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace: 'index.html', '' }}",
+			"telephone": "{{ site.data.settings.client.phone_e164 }}",
+			"email": "{{ site.data.settings.client.email }}",
+			"worksFor": {
+				"@type": "RealEstateAgent",
+				"name": "{{ site.data.settings.client.brand }}",
+				"areaServed": [{% for area in page.areas_served %}"{{ area }}"{% unless forloop.last %},{% endunless %}{% endfor %}]
+			},
+			"sameAs": [{% if site.data.settings.client.socials.facebook %}"{{ site.data.settings.client.socials.facebook }}"{% endif %}{% if site.data.settings.client.socials.instagram %},"{{ site.data.settings.client.socials.instagram }}"{% endif %}{% if site.data.settings.client.socials.linkedin %},"{{ site.data.settings.client.socials.linkedin }}"{% endif %}{% if site.data.settings.client.socials.youtube %},"{{ site.data.settings.client.socials.youtube }}"{% endif %}{% if site.data.settings.client.socials.zillow %},"{{ site.data.settings.client.socials.zillow }}"{% endif %}]
+		}
+	}
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{% comment %}
+  Bio page stat band. Driven by page.bio_stats in the page's front matter.
+  Renders nothing when the list is empty.
+{% endcomment %}
+
+{% if page.bio_stats.size > 0 %}
+<section class="bio-stats">
+  <div class="bio-stats-container">
+    {% for stat in page.bio_stats %}
+    <div class="bio-stat">
+      <span class="bio-stat-number">{{ stat.stat_value }}</span>
+      <span class="bio-stat-label">{{ stat.stat_label }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

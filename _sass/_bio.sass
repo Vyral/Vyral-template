@@ -1,0 +1,518 @@
+// ---------------------------------------------------------------------------
+// Bio / About page
+// Used by _layouts/bio.html with _includes/bio-hero.html, bio-stats.html and
+// bio-areas.html. Colours and type all come from _data/settings.yml through
+// the variables declared in css/main.sass, so this page restyles with the
+// rest of the site.
+// ---------------------------------------------------------------------------
+
+$bio-accent: $nav-color
+$bio-max-width: $main-width
+$bio-reading-width: 90rem
+
+.bio-hero
+  position: relative
+  padding: 13rem 1.5rem 6rem
+  background-size: cover
+  background-position: center
+  background-attachment: fixed
+  background-repeat: no-repeat
+  background-color: $about-me-section-bg-image-overlay-color
+  background-blend-mode: color
+
+.bio-hero-container
+  display: grid
+  grid-template-columns: 1.15fr 1fr
+  grid-template-areas: "text image" "text buttons"
+  align-items: center
+  column-gap: 5rem
+  row-gap: 2.5rem
+  max-width: $bio-max-width
+  margin: 0 auto
+  padding: 0 2rem
+
+.bio-hero-text
+  grid-area: text
+  text-align: left
+
+  .bio-headline
+    font-family: $bodyfont
+    font-size: 4.4rem
+    font-weight: 700
+    line-height: 1.15
+    letter-spacing: 0
+    color: $theme-body-text
+    margin: 0 0 1.2rem
+
+  .bio-subheadline
+    font-family: $bodyfont
+    font-size: 2.4rem
+    font-weight: 400
+    line-height: 1.3
+    letter-spacing: 0
+    color: $bio-accent
+    margin: 0 0 2.5rem
+
+  .bio-lede
+    p
+      font-family: $bodyfont
+      font-size: 1.9rem
+      font-weight: 300
+      line-height: 1.5
+      color: $theme-body-text
+      margin: 0 0 2rem
+
+    p:last-child
+      margin-bottom: 0
+
+.bio-hero-buttons
+  grid-area: buttons
+  justify-self: center
+  width: 100%
+  max-width: 46rem
+  display: flex
+  flex-direction: column
+  gap: 1.5rem
+
+  .cta-button
+    margin: 0
+
+    a
+      display: block
+
+    button
+      width: 100%
+
+    &.inverted button
+      color: $light-button-text
+      background: $light-button-background
+      border: 1px solid $light-button-border
+      transition: $button-transition
+      border-radius: $button-radius
+
+      &:hover
+        color: $light-button-hover-text
+        background: $light-button-hover-background
+        border: 1px solid $light-button-hover-border
+
+.bio-hero-image
+  grid-area: image
+  display: flex
+  justify-content: center
+
+.bio-hero-image-container
+  position: relative
+  width: 100%
+  max-width: 46rem
+  margin: 0
+  border: 6px solid white
+  box-shadow: rgba(99, 99, 99, 0.2) 0 0.8rem 2.4rem 0
+
+  img
+    display: block
+    width: 100%
+    height: auto
+
+// --- stat band -------------------------------------------------------------
+
+.bio-stats
+  background-color: $bio-accent
+  color: $light-text
+  padding: 4.5rem 1.5rem
+
+.bio-stats-container
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  align-items: stretch
+  gap: 3rem 1rem
+  max-width: $bio-max-width
+  margin: 0 auto
+
+.bio-stat
+  flex: 1 1 18rem
+  max-width: 26rem
+  padding: 0 1.5rem
+  text-align: center
+  display: flex
+  flex-direction: column
+
+  .bio-stat-number
+    flex: 1 0 auto
+    display: flex
+    align-items: center
+    justify-content: center
+    font-family: $bodyfont
+    font-size: 4.2rem
+    font-weight: 700
+    line-height: 1.1
+    margin: 0 0 0.6rem
+
+  .bio-stat-label
+    display: block
+    font-family: $bodyfont
+    font-size: 1.6rem
+    font-weight: 300
+    line-height: 1.35
+    margin: 0
+
+// When the stat band closes the page it butts straight up against the teal
+// footer, so the two read as one block rather than two bars split by a sliver
+// of white. Drop this rule to put the 5rem gap back.
+.bio-stats:last-child
+  margin-bottom: -5rem
+
+// --- long-form body --------------------------------------------------------
+
+.bio-content
+  padding: 4rem 1.5rem 1rem
+
+.bio-content-container
+  max-width: $bio-reading-width
+  margin: 0 auto
+
+.post-content.bio-body
+  padding: 0
+
+  > h2:first-child
+    margin-top: 0
+
+  h2
+    margin: 4.5rem 0 1.8rem
+    padding-bottom: 1.2rem
+    border-bottom: 2px solid $bio-accent
+
+  ul
+    margin-bottom: 2.5rem
+
+// --- fact box --------------------------------------------------------------
+
+.bio-fact-box
+  padding: 1rem 1.5rem 2rem
+
+.bio-fact-box-container
+  max-width: $bio-reading-width
+  margin: 0 auto
+
+  .headline
+    h4
+      font-family: $bodyfont
+      font-size: 3.2rem
+      font-weight: 600
+      line-height: 1.3
+      text-align: left
+      margin: 0
+      padding: 0
+
+    h5
+      font-family: $bodyfont
+      font-size: 1.8rem
+      font-weight: 300
+      line-height: 1.5
+      text-align: left
+      margin: 0.6rem 0 0
+      padding: 0
+
+.bio-facts
+  margin: 2.5rem 0 0
+  padding: 0
+  border-top: 3px solid $bio-accent
+  background: white
+  box-shadow: rgba(99, 99, 99, 0.12) 0 0.2rem 1rem 0
+
+.bio-fact
+  display: grid
+  grid-template-columns: 30% 1fr
+  column-gap: 2rem
+  align-items: baseline
+  padding: 1.6rem 2.2rem
+  border-bottom: 1px solid #e6e6e6
+
+  &:last-child
+    border-bottom: 0
+
+  &:nth-child(odd)
+    background: #fafafa
+
+  dt
+    font-family: $bodyfont
+    font-size: 1.5rem
+    font-weight: 500
+    line-height: 1.35
+    letter-spacing: 0.06rem
+    text-transform: uppercase
+    color: $bio-accent
+    margin: 0
+
+  dd
+    font-family: $bodyfont
+    font-size: 1.8rem
+    font-weight: 300
+    line-height: 1.45
+    color: $theme-body-text
+    margin: 0
+
+.bio-fact-value
+  display: inline
+
+.bio-fact-source
+  display: block
+  font-size: 1.4rem
+  font-weight: 300
+  line-height: 1.4
+  margin-top: 0.4rem
+  color: #6b6b6b
+
+  a
+    color: $bio-accent
+    text-decoration: underline
+
+    &:hover,
+    &:focus
+      color: $bio-accent
+      text-decoration: none
+
+// --- areas served ----------------------------------------------------------
+
+.bio-areas
+  padding: 5rem 1.5rem 5.5rem
+
+.bio-areas-container
+  max-width: $bio-max-width
+  margin: 0 auto
+
+  .headline
+    h4
+      font-family: $bodyfont
+      font-size: 4.2rem
+      font-weight: 600
+      line-height: 1.35
+      text-align: center
+      margin: 0 auto
+      padding: 0
+
+    h5
+      font-family: $bodyfont
+      font-size: 2.2rem
+      font-weight: 300
+      line-height: 1.5
+      text-align: center
+      margin: 0.5rem auto 4rem
+      padding: 0
+
+.bio-areas-list
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  gap: 1.2rem
+  list-style: none
+  margin: 0
+  padding: 0
+
+  li
+    font-family: $bodyfont
+    font-size: 1.7rem
+    font-weight: 300
+    line-height: 1
+    color: $theme-body-text
+    background: white
+    border: 1px solid $bio-accent
+    border-radius: $button-radius
+    padding: 1.2rem 2rem
+    margin: 0
+
+// --- reveal on scroll ------------------------------------------------------
+// The `bio-reveal-on` class is added to <html> by the script in _layouts/bio.html,
+// and only when JS runs AND the visitor has not asked for reduced motion. Without
+// it every rule below is inert, so the page renders fully visible by default —
+// nothing here can hide content from a visitor who never gets the animation.
+
+.bio-reveal-on
+
+  .bio-reveal
+    opacity: 0
+    transform: translateY(2.4rem)
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1)
+
+    &.is-visible
+      opacity: 1
+      transform: none
+
+  .bio-hero-image.bio-reveal
+    transform: translateY(2rem) scale(0.97)
+    transition-delay: 0.12s
+
+    &.is-visible
+      transform: none
+
+  .bio-hero-buttons.bio-reveal
+    transition-delay: 0.24s
+
+  // stat band and area chips animate their children in sequence instead
+  .bio-stat
+    opacity: 0
+    transform: translateY(1.6rem)
+    transition: opacity 0.6s ease, transform 0.6s ease
+
+  .bio-stats.is-visible .bio-stat
+    opacity: 1
+    transform: none
+
+    @for $i from 1 through 8
+      &:nth-child(#{$i})
+        transition-delay: $i * 0.09s
+
+  .bio-fact
+    opacity: 0
+    transform: translateY(1.2rem)
+    transition: opacity 0.55s ease, transform 0.55s ease
+
+  .bio-facts.is-visible .bio-fact
+    opacity: 1
+    transform: none
+
+    @for $i from 1 through 16
+      &:nth-child(#{$i})
+        transition-delay: $i * 0.05s
+
+  .bio-areas-list li
+    opacity: 0
+    transform: translateY(1.2rem)
+    transition: opacity 0.5s ease, transform 0.5s ease
+
+  .bio-areas-list.is-visible li
+    opacity: 1
+    transform: none
+
+    @for $i from 1 through 24
+      &:nth-child(#{$i})
+        transition-delay: $i * 0.04s
+
+// --- responsive ------------------------------------------------------------
+
+@media only screen and (max-width: 1230px)
+  .bio-hero-container
+    column-gap: 4rem
+
+  .bio-hero-text
+    .bio-headline
+      font-size: 4rem
+
+@media only screen and (max-width: 1000px)
+  .bio-hero
+    padding: 11rem 1.5rem 5rem
+
+  .bio-hero-container
+    padding: 0 1rem
+
+  .bio-hero-text
+    .bio-headline
+      font-size: 3.6rem
+
+    .bio-subheadline
+      font-size: 2.2rem
+
+@media only screen and (max-width: 800px)
+  .bio-hero
+    padding: 10rem 1.5rem 4.5rem
+    background-attachment: scroll
+
+  .bio-hero-container
+    grid-template-columns: 1fr
+    grid-template-areas: "image" "text" "buttons"
+    justify-items: center
+    row-gap: 3.5rem
+
+  .bio-hero-text
+    text-align: center
+
+    .bio-headline
+      font-size: 3.2rem
+
+    .bio-subheadline
+      font-size: 2rem
+      margin-bottom: 2rem
+
+  .bio-hero-buttons
+    max-width: 34rem
+
+  .bio-hero-image
+    width: 100%
+
+  .bio-hero-image-container
+    max-width: 34rem
+
+  .bio-content
+    padding: 4.5rem 1.5rem 1rem
+
+  .bio-areas
+    padding: 3.5rem 1.5rem 5rem
+
+  .bio-fact
+    grid-template-columns: 1fr
+    row-gap: 0.5rem
+    padding: 1.4rem 1.6rem
+
+  .bio-fact-box-container
+    .headline
+      h4
+        font-size: 2.6rem
+        font-weight: 500
+
+      h5
+        font-size: 1.7rem
+
+  .bio-areas-container
+    .headline
+      h4
+        font-size: 2.8rem
+        font-weight: 500
+        line-height: 1.2
+
+      h5
+        font-size: 1.9rem
+        margin-bottom: 3rem
+
+@media only screen and (max-width: 600px)
+  .bio-stats
+    padding: 3.5rem 1.5rem
+
+  .bio-stat
+    flex: 1 1 14rem
+
+    .bio-stat-number
+      font-size: 3.4rem
+
+    .bio-stat-label
+      font-size: 1.5rem
+
+@media only screen and (max-width: 480px)
+  .bio-hero
+    padding: 9rem 1.5rem 4rem
+
+  .bio-hero-text
+    .bio-headline
+      font-size: 2.8rem
+
+    .bio-lede p
+      font-size: 1.7rem
+
+  .bio-hero-buttons
+    gap: 1.2rem
+
+  .bio-areas-list
+    gap: 1rem
+
+    li
+      font-size: 1.5rem
+      padding: 1rem 1.6rem
+
+// Printing never fires a scroll, so force every reveal target visible on paper
+// and in "Save as PDF" — otherwise anything below the fold prints blank.
+@media print
+  .bio-reveal-on .bio-reveal,
+  .bio-reveal-on .bio-stat,
+  .bio-reveal-on .bio-fact,
+  .bio-reveal-on .bio-areas-list li
+    opacity: 1 !important
+    transform: none !important

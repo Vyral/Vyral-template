@@ -1,0 +1,47 @@
+{% comment %}
+  Bio page hero: portrait + headline + lede + CTA buttons.
+  All content comes from the page's front matter.
+  See .cloudcannon/schemas/bio_page.md for the editable fields.
+{% endcomment %}
+
+{% assign bio_bg = page.bio_background_image | default: site.data.settings.about_me.background_image.image %}
+
+<section class="bio-hero"{% if bio_bg %} style="background-image: url('{{ site.baseurl }}{{ bio_bg }}');"{% endif %}>
+  <div class="bio-hero-container">
+
+    <div class="bio-hero-text">
+
+      <h1 class="bio-headline" itemprop="name headline" data-cms-bind="#bio_headline">{{ page.bio_headline | default: page.title }}</h1>
+
+      {% if page.subtitle %}
+      <h2 class="bio-subheadline" itemprop="jobTitle" data-cms-bind="#subtitle">{{ page.subtitle }}</h2>
+      {% endif %}
+
+      {% if page.lede %}
+      <div class="bio-lede" data-cms-bind="#lede">{{ page.lede | markdownify }}</div>
+      {% endif %}
+
+    </div>
+
+    <div class="bio-hero-image">
+      <div class="bio-hero-image-container">
+        <img src="{{ site.baseurl }}{{ page.bio_image }}"
+          alt="{{ page.bio_image_alt | default: site.data.settings.client.name }}" loading="eager">
+      </div>
+    </div>
+
+    {% comment %} CTAs sit under the portrait on desktop, at the foot of the block on mobile. {% endcomment %}
+    {% if page.bio_buttons %}
+    <div class="bio-hero-buttons">
+      {% for button in page.bio_buttons %}
+      <div class="cta-button{% unless forloop.first %} inverted{% endunless %}">
+        <a href="{{ button.link }}" aria-label="{{ button.text }}"{% if button.open_in_new_tab %} target="_blank" rel="noreferrer noopener"{% endif %}>
+          <button>{{ button.text }}</button>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+  </div>
+</section>

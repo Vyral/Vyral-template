@@ -14,6 +14,98 @@ _inputs:
   subtitle:
     type: text
     label: Subtitle
+  bio_headline:
+    type: text
+    label: Bio headline (H1)
+    comment: The large headline at the top of the bio page. Falls back to the page title.
+  lede:
+    type: markdown
+    label: Intro paragraph
+    comment: Short introduction shown beside the portrait at the top of the page.
+  excerpt:
+    type: textarea
+    label: Meta description
+    comment: Used for the search-engine description and social sharing preview.
+  bio_image:
+    type: image
+    label: Portrait photo
+    comment: Portrait shown at the top of the bio page. Upload to /uploads.
+  bio_image_alt:
+    type: text
+    label: Portrait alt text
+  bio_background_image:
+    type: image
+    label: Bio header background
+    comment: Optional background image behind the bio header.
+  bio_buttons:
+    type: array
+    label: Bio header buttons
+  bio_stats:
+    type: array
+    label: Stat band
+    comment: Figures shown in the coloured band under the bio header.
+  stat_value:
+    type: text
+    label: Figure
+    comment: >-
+      The large figure, as free text — e.g. "20+ Years", "Almost $1 Billion",
+      "1,800+". Not restricted to digits.
+  stat_label:
+    type: text
+    label: Caption
+    comment: The small line under the figure.
+  fact_box:
+    type: array
+    label: Fact box rows
+    comment: One row per fact. Leave the source fields empty when there is no citation.
+  fact_box_headline:
+    type: text
+    label: Fact box heading
+  fact_box_intro:
+    type: text
+    label: Fact box intro line
+  fact_label:
+    type: text
+    label: Fact name
+  fact_value:
+    type: text
+    label: Fact value
+  fact_source:
+    type: text
+    label: Source name
+    comment: 'Who says so, e.g. Zillow or RealTrends Verified 2025. Leave empty for no citation.'
+  fact_source_url:
+    type: url
+    label: Source link
+    comment: Optional. Without it the source name shows as plain text.
+  areas_served:
+    type: array
+    label: Areas served
+    comment: Communities listed in the grid at the bottom of the page.
+  areas_served_headline:
+    type: text
+    label: Areas served headline
+  areas_served_subheadline:
+    type: text
+    label: Areas served subheadline
+  show_about_section:
+    type: switch
+    label: 'Show section: About'
+  show_benefits_section:
+    type: switch
+    label: 'Show section: Benefits'
+  show_about_me_section:
+    type: switch
+    label: 'Show section: About Me'
+  show_faqs_section:
+    type: switch
+    label: 'Show section: FAQs'
+  show_testimonials_section:
+    type: switch
+    label: 'Show section: Testimonials'
+  show_photo_wall_section:
+    type: switch
+    label: 'Show section: Photo Wall'
 
 _snippets:
   jekyll_include:
@@ -46,6 +138,9 @@ collections_config:
       custom:
         name: Custom Page
         path: .cloudcannon/schemas/custom_page.md
+      bio:
+        name: Bio Page
+        path: .cloudcannon/schemas/bio_page.md
     preview:
       text:
         - key: title
