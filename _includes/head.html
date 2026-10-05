@@ -28,9 +28,38 @@
   <!-- Site styles (load last so our rules override libraries) -->
   <link rel="stylesheet" href="/css/main.css?v={{ site.time | date: '%s' }}">
 
+  {%- comment -%}
+    One description, one URL and one image per page, computed once and read by
+    the meta description, Open Graph and Twitter tags below, so they can never
+    disagree. Page excerpts (About, FAQ) are hand-written and ship whole; post
+    excerpts are auto-extracted first paragraphs and are trimmed to 160.
+    The -- MARKET -- / -- CLIENT BRAND -- tokens are filled the same way the
+    site description's are, so the template's FAQ excerpt fills itself in.
+  {%- endcomment -%}
+  {%- assign page_desc = site.data.settings.description -%}
+  {%- if page.excerpt -%}
+    {%- assign excerpt_text = page.excerpt | strip_html | strip_newlines | strip -%}
+    {%- if excerpt_text != '' -%}
+      {%- if page.is_post -%}
+        {%- assign page_desc = excerpt_text | truncate: 160 -%}
+      {%- else -%}
+        {%- assign page_desc = excerpt_text -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {%- assign page_desc = page_desc | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand -%}
+  {%- assign page_share_url = site.data.settings.podcast.client_website_URL | append: page.url | replace: 'index.html', '' -%}
+  {%- if page.is_post and page.youtube_code -%}
+    {%- assign yt_id = page.youtube_code | remove: 'https://youtu.be/' | remove: 'https://www.youtube.com/watch?v=' -%}
+    {%- assign page_share_image = 'https://img.youtube.com/vi/' | append: yt_id | append: '/maxresdefault.jpg' -%}
+  {%- elsif page.is_post -%}
+    {%- assign page_share_image = site.data.settings.podcast.client_website_URL | append: page.youtube_alternate_image -%}
+  {%- else -%}
+    {%- assign page_share_image = site.data.settings.podcast.client_website_URL | append: site.data.settings.share_image -%}
+  {%- endif -%}
+
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}</title>
-  <meta name="description"
-    content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}{% endif %}">
+  <meta name="description" content="{{ page_desc | escape }}">
 
   <meta content="index, follow" name="robots">
   <meta content="index, follow" name="googlebot">
@@ -76,89 +105,25 @@
   {{ site.data.settings.code.meta_pixel_code }}
   {% endif %}
 
-  <!--OPEN GRAPH TAGS FOR SOCIAL MEDIA SHARING -->
-    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}">
-
-  {% if page.is_post %}
-
-    <meta name="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}{% endif %}">
-     {% if page.youtube_code %}
-      <meta property="og:image" content="https://img.youtube.com/vi/{{page.youtube_code | remove: 'https://youtu.be/' | remove: 'https://www.youtube.com/watch?v='}}/maxresdefault.jpg">
-    {% else %}
-      <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.youtube_alternate_image }}">
-    {% endif %}
-
-    <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
-    
-  {% else %}
-    <meta property="og:description" content="{{site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}">
-
-    {% if site.data.settings.podcast.client_website_URL %}
-      <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
-    {% else %}
-      <meta property="og:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
-    {% endif %} 
-
-    {% if site.data.settings.podcast.client_website_URL %}
-      <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}">
-    {% else %}
-      <meta property="og:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
-    {% endif %} 
-
-  {% endif %}
+  <!-- OPEN GRAPH: every tag describes and points at this page -->
+  <meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.data.settings.title | escape }}{% endif %}">
+  <meta property="og:description" content="{{ page_desc | escape }}">
+  <meta property="og:url" content="{{ page_share_url }}">
+  <meta property="og:image" content="{{ page_share_image }}">
 
   {% if site.data.settings.fb-admins %}
     <meta property="fb:admins" content="{{ site.data.settings.fb-admins }}">
   {% endif %}
 
-  <!-- Twitter Meta Tags -->
+  <!-- Twitter: same description, URL and image as Open Graph -->
   <meta name="twitter:card" content="summary_large_image">
-  {% if site.data.settings.podcast.client_website_URL %}
-    <meta property="twitter:domain" content="{{ site.data.settings.podcast.client_website_URL | remove: 'https://' }}">
-  {% else %}
-    <meta property="twitter:domain" content="{{ site.data.settings.podcast.client_website_URL | remove: 'https://' }}">
-  {% endif %} 
+  <meta property="twitter:domain" content="{{ site.data.settings.podcast.client_website_URL | remove: 'https://' }}">
+  <meta property="twitter:url" content="{{ page_share_url }}">
+  <meta name="twitter:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.data.settings.title | escape }}{% endif %}">
+  <meta name="twitter:description" content="{{ page_desc | escape }}">
+  <meta name="twitter:image" content="{{ page_share_image }}">
 
-  {% if page.is_post %}
-      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
-
-  {% else %}
-
-    {% if site.data.settings.podcast.client_website_URL %}
-      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}">
-    {% else %}
-      <meta property="twitter:url" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace:'index.html','' }}">
-    {% endif %} 
-
-  {% endif %}
- 
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}">
-  {% if page.is_post %}
-
-    <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}{% endif %}">
-
-    {% if page.youtube_code %}
-      <meta name="twitter:image" content="https://img.youtube.com/vi/{{page.youtube_code | remove: 'https://youtu.be/' | remove: 'https://www.youtube.com/watch?v='}}/maxresdefault.jpg">
-    {% else %} 
-      <meta name="twitter:image" content="{{ site.data.settings.podcast.client_website_URL }}{{ page.youtube_alternate_image }}">
-    {% endif %} 
-
-  {% else %}
-
-    <meta name="twitter:description" content="{{site.data.settings.description | replace: '-- MARKET --', site.data.settings.client.market | replace: '-- CLIENT BRAND --', site.data.settings.client.brand }}">
-
-    {% if site.data.settings.podcast.client_website_URL %}
-      <meta name="twitter:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
-    {% else %}
-      <meta name="twitter:image" content="{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}">
-    {% endif %} 
-
-  {% endif %}
-
-
-
-
-  {% assign cfg = site.data.settings.client.url | default: site.data.settings.podcast.client_website_URL %}
+    {% assign cfg = site.data.settings.client.url | default: site.data.settings.podcast.client_website_URL %}
   {% if cfg contains '://' %}
     {% assign base = cfg %}
   {% else %}
