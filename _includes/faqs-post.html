@@ -7,7 +7,7 @@
         {% for itempost in page.post_faqs %}
             <div class="faq-item-post">
                 <h4>{{ itempost.question }}</h4>
-                <p>{{ itempost.answer }}</p>
+                {{ itempost.answer | markdownify }}
             </div>
         {% endfor %}
     </section>
