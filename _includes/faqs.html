@@ -23,7 +23,7 @@
         <section class="faq">
             <div class="faqs-header">
                 {% if is_preview %}
-                    <h4>Frequently Asked Questions</h4>
+                    <h2>Frequently Asked Questions</h2>
                 {% else %}
                     <h1>Frequently Asked Questions</h1>
                 {% endif %}
@@ -32,7 +32,7 @@
             {% for item in visible_faqs limit: faq_limit %}
                 <div class="faq-item">
                     {% if is_preview %}
-                        <h5 role="button" tabindex="0" aria-expanded="false">{{ item.question }}</h5>
+                        <h3 role="button" tabindex="0" aria-expanded="false">{{ item.question }}</h3>
                     {% else %}
                         <h2 role="button" tabindex="0" aria-expanded="false">{{ item.question }}</h2>
                     {% endif %}
