@@ -1,0 +1,26 @@
+{% comment %}
+  "Last reviewed" stamp.
+
+  Driven ONLY by an explicit `last_reviewed:` date in the page's front matter —
+  never by the build time, the git date or the file's modification time. This
+  line tells a visitor that a person checked the facts on this page. An
+  automatic date would re-assert that review on every rebuild, claiming a check
+  that nobody performed, which matters most on exactly the pages that carry
+  cited figures.
+
+  Renders nothing at all when the field is empty, so a page that has not been
+  reviewed simply makes no claim.
+
+  An empty string is truthy in Liquid, and clearing a date field in CloudCannon
+  can leave `last_reviewed: ''` rather than removing the key. The value is
+  therefore stripped and compared against '' instead of simply tested, so a
+  cleared field hides the line rather than printing "Last reviewed" with no date.
+{% endcomment %}
+
+{% assign reviewed = page.last_reviewed | default: '' | strip %}
+{% if reviewed != '' %}
+<p class="last-reviewed">
+  Last reviewed
+  <time datetime="{{ reviewed | date: '%Y-%m-%d' }}">{{ reviewed | date: "%B %-d, %Y" }}</time>
+</p>
+{% endif %}

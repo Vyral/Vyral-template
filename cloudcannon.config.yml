@@ -14,6 +14,13 @@ _inputs:
   subtitle:
     type: text
     label: Subtitle
+  last_reviewed:
+    type: date
+    label: Last reviewed
+    comment: >-
+      The date a person last checked the facts on this page. Set it by hand when
+      you actually review the page. Leave it empty rather than guessing — an
+      empty field simply hides the line.
   bio_headline:
     type: text
     label: Bio headline (H1)

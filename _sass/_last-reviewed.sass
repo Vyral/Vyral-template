@@ -1,0 +1,32 @@
+// "Last reviewed" stamp — see _includes/last-reviewed.html
+// Quiet by design: it is provenance, not content.
+
+.last-reviewed
+  font-family: $bodyfont
+  font-size: 1.5rem
+  font-weight: 300
+  line-height: 1.4
+  color: #6b6b6b
+  text-align: left
+  max-width: 90rem
+  margin: 3.5rem auto 0
+  padding: 1.4rem 0 0
+  border-top: 1px solid #e6e6e6
+
+  time
+    white-space: nowrap
+
+// On the FAQ page the stamp closes the list, which is centred on the page
+.faq-container + .last-reviewed,
+.shell-last-reviewed
+  text-align: center
+  padding-left: 1.5rem
+  padding-right: 1.5rem
+  margin-bottom: 4rem
+
+@media only screen and (max-width: 800px)
+  .last-reviewed
+    font-size: 1.4rem
+    margin-top: 2.5rem
+    padding-left: 1.5rem
+    padding-right: 1.5rem
