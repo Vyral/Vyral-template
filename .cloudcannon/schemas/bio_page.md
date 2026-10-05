@@ -1,7 +1,7 @@
 ---
 layout: bio
 title: About [Name]
-permalink: /about/
+permalink: /about
 last_reviewed:
 subtitle: Broker-in-Charge & Owner
 bio_headline: 'Full Name: City, ST Real Estate Broker'
