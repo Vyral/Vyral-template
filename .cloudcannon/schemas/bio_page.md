@@ -33,6 +33,7 @@ areas_served_subheadline: A short sentence about the communities covered.
 areas_served:
   - Community name
   - Community name
+bio_stats_note:
 fact_box_headline: Fact Box
 fact_box:
   - fact_label: Name

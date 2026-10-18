@@ -28,7 +28,7 @@
       <div class="bio-fact">
         <dt>{{ fact.fact_label }}</dt>
         <dd>
-          <span class="bio-fact-value">{{ fact.fact_value }}</span>
+          <span class="bio-fact-value">{{ fact.fact_value | replace: as_of_from, as_of_to }}</span>
           {% if fact.fact_source %}
           <span class="bio-fact-source">
             {% if fact.fact_source_url %}

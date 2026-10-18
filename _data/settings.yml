@@ -19,12 +19,17 @@ client:
   brand: Company Name, Inc.
   market: Test Market
   license_number:
+  job_title: Broker and Owner
+  stats_as_of:
+  featured_talk:
+    title:
+    url:
   address: 123 Elm Street
   city: Omaha
   state: Nebraska
   zip: '68116'
   latitude: '41.2546'
-  longitude: '96.1050'
+  longitude: '-96.1050'
   phone_display: (925) 555-1234
   phone_e164: '+19255551234'
   email: info@companyname.com
@@ -32,8 +37,11 @@ client:
   socials:
     facebook: https://www.facebook.com/
     instagram: https://www.instagram.com/
+    instagram_business:
     youtube: https://www.youtube.com/
     linkedin: https://www.linkedin.com/
+    linkedin_personal:
+    tiktok:
     x: https://x.com/
     google_my_business:
     zillow: https://www.zillow.com/
@@ -587,7 +595,37 @@ _inputs:
   podcast.host:
     comment: This currently does not affect /itunes.xml
   podcast.client_website_URL:
-    comment: Full website URL - do not end with a slash.
+    comment: >-
+      Full website URL - do not end with a slash. Also set the same address as
+      url in _config.yml, or the sitemap links will be incomplete.
+  client.stats_as_of:
+    type: date
+    label: Figures as of
+    comment: >-
+      The date the sales, reviews and team-size figures were last checked.
+      Shown as "as of Month Year" wherever [AS OF] appears on the About page
+      and FAQ. Update it by hand each time you refresh the numbers; leave it
+      empty to hide the stamps.
+  client.job_title:
+    comment: >-
+      The client's role, e.g. "Broker and Owner". Used in the hidden profile
+      search engines and AI tools read.
+  client.featured_talk:
+    comment: Optional. A talk or keynote video (e.g. a TEDx talk) to list on the client's profile.
+  client.socials.instagram:
+    comment: The client's own (personal) Instagram. Put the company account in instagram_business.
+  client.socials.instagram_business:
+    comment: Optional. The company's Instagram, if separate from the client's own.
+  client.socials.linkedin:
+    comment: The company LinkedIn page. Put the client's own profile in linkedin_personal.
+  client.socials.linkedin_personal:
+    comment: Optional. The client's own LinkedIn profile (linkedin.com/in/...).
+  client.latitude:
+    comment: Office map position, e.g. 35.7698 (north of the equator is positive).
+  client.longitude:
+    comment: >-
+      Office map position. Everywhere in the U.S. this is NEGATIVE, e.g.
+      -78.7816. Without the minus sign the pin lands in Asia.
   podcast.category:
     type: select
     options:

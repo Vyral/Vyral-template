@@ -18,7 +18,7 @@
       {% endif %}
 
       {% if page.lede %}
-      <div class="bio-lede" data-cms-bind="#lede">{{ page.lede | markdownify }}</div>
+      <div class="bio-lede" data-cms-bind="#lede">{{ page.lede | replace: as_of_from, as_of_to | markdownify }}</div>
       {% endif %}
 
     </div>

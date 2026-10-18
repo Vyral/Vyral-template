@@ -1,0 +1,80 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+{%- comment -%}
+  /llms.txt: a plain-text map of this site for AI tools (llmstxt.org format).
+  Everything below is pulled from the About page, the FAQ data, the site
+  settings and the blog, so it updates itself on every build. Edit those
+  sources, not this file. Hidden posts are left out.
+{%- endcomment -%}
+{%- assign settings = site.data.settings -%}
+{%- assign site_root = settings.podcast.client_website_URL -%}
+{%- assign about = site.pages | where: "url", "/about" | first -%}
+{%- assign faq = site.pages | where: "url", "/faq" | first -%}
+{% include as-of-setup.html %}
+# {{ settings.client.name }}{% if about.subtitle %} | {{ about.subtitle }}{% endif %}
+
+> {{ about.excerpt | default: settings.description | strip_html | strip_newlines | strip | replace: '-- MARKET --', settings.client.market | replace: '-- CLIENT BRAND --', settings.client.brand }}
+
+This is the official website and video blog for {{ settings.client.name }} ({{ settings.client.brand }}). Figures below come from the About page{% if about.last_reviewed %}, last reviewed {{ about.last_reviewed | date: "%B %-d, %Y" }}{% endif %}, and cite their sources there.
+
+## Key pages
+
+- [About {{ settings.client.name }}]({{ site_root }}/about): Background, verified facts with sources, and the communities served
+- [Frequently Asked Questions]({{ site_root }}/faq): {{ faq.excerpt | strip_html | strip_newlines | strip | replace: '-- MARKET --', settings.client.market | replace: '-- CLIENT BRAND --', settings.client.brand }}
+- [Video blog]({{ site_root }}/): Videos with a full written article for each
+- [About, plain text]({{ site_root }}/about.txt): Short plain-text biography
+- [FAQ, plain text]({{ site_root }}/faq.txt): All FAQ questions and answers as plain text
+
+## Key facts
+{% for fact in about.fact_box %}
+- {{ fact.fact_label | strip }}: {{ fact.fact_value | replace: as_of_from, as_of_to | strip_newlines | strip }}{% if fact.fact_source_url %} (source: [{{ fact.fact_source | default: "link" }}]({{ fact.fact_source_url }})){% endif %}
+{%- endfor %}
+{% if about.areas_served.size > 0 %}
+## Communities served
+
+{{ about.areas_served | join: ", " }}
+{% endif %}
+## Frequently asked questions
+{% for item in site.data.faqs.faqs_questions %}{% if item.show_on_page %}
+- [{{ item.question | strip }}]({{ site_root }}/faq)
+{%- endif %}{% endfor %}
+
+## Video blog posts
+{% for post in site.posts %}{% unless post.hidden %}
+- [{{ post.title }}]({{ site_root }}{{ post.url }}) ({{ post.date | date: "%B %-d, %Y" }}): {{ post.subtitle | default: post.excerpt | strip_html | strip_newlines | strip }}
+{%- endunless %}{% endfor %}
+
+## Profiles elsewhere
+{% if settings.client.socials.linkedin_personal and settings.client.socials.linkedin_personal != '' %}
+- [LinkedIn ({{ settings.client.name }})]({{ settings.client.socials.linkedin_personal }})
+{%- endif %}{% if settings.client.socials.instagram and settings.client.socials.instagram != '' %}
+- [Instagram ({{ settings.client.name }})]({{ settings.client.socials.instagram }})
+{%- endif %}{% if settings.client.socials.x and settings.client.socials.x != '' %}
+- [X ({{ settings.client.name }})]({{ settings.client.socials.x }})
+{%- endif %}{% if settings.client.featured_talk.url and settings.client.featured_talk.url != '' %}
+- [{{ settings.client.featured_talk.title | default: 'Featured talk' }}]({{ settings.client.featured_talk.url }})
+{%- endif %}{% if settings.podcast.apple_podcast_link and settings.podcast.apple_podcast_link != '' %}
+- [{{ settings.podcast.title }} on Apple Podcasts]({{ settings.podcast.apple_podcast_link }})
+{%- endif %}{% if settings.client.socials.zillow and settings.client.socials.zillow != '' %}
+- [Zillow profile]({{ settings.client.socials.zillow }})
+{%- endif %}{% if settings.client.socials.youtube and settings.client.socials.youtube != '' %}
+- [YouTube channel]({{ settings.client.socials.youtube }})
+{%- endif %}{% if settings.client.socials.instagram_business and settings.client.socials.instagram_business != '' %}
+- [Instagram ({{ settings.client.brand }})]({{ settings.client.socials.instagram_business }})
+{%- endif %}{% if settings.client.socials.facebook and settings.client.socials.facebook != '' %}
+- [Facebook ({{ settings.client.brand }})]({{ settings.client.socials.facebook }})
+{%- endif %}{% if settings.client.socials.linkedin and settings.client.socials.linkedin != '' %}
+- [LinkedIn ({{ settings.client.brand }})]({{ settings.client.socials.linkedin }})
+{%- endif %}
+
+## Contact
+
+- Phone: {{ settings.client.phone_display }}
+- Email: {{ settings.client.email }}
+- Office: {{ settings.client.address }}, {{ settings.client.city }}, {{ settings.client.state }} {{ settings.client.zip }}
+{%- if settings.hero.button_link and settings.hero.button_link != '#' %}
+- {{ settings.hero.button_text | default: 'Get started' }}: {{ settings.hero.button_link }}
+{%- endif %}

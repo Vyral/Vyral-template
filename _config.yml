@@ -3,6 +3,10 @@ title: "Vyral Template"
 # baseurl: ""
 baseurl: ""
 # the base hostname & protocol for your site. Don't let it end in '/' or you'll mess the links up
+# SET THIS FOR EVERY CLIENT. It must match Settings → podcast → client_website_URL.
+# The sitemap (sitemap.xml) and RSS feed build their links from it; without it
+# every sitemap entry is a bare path like "/about", which search engines reject.
+url: "https://www.clientwebsite.com"
 
 #Handling Reading
 encoding: "utf-8"

@@ -13,5 +13,11 @@
     </div>
     {% endfor %}
   </div>
+  {% comment %} A note that relies on [AS OF] is hidden while no date is set. {% endcomment %}
+  {% assign stats_note_undated = false %}
+  {% if page.bio_stats_note contains '[AS OF]' and as_of_month == '' %}{% assign stats_note_undated = true %}{% endif %}
+  {% if page.bio_stats_note and page.bio_stats_note != '' and stats_note_undated == false %}
+  <p class="bio-stats-note">{{ page.bio_stats_note | replace: as_of_from, as_of_to }}</p>
+  {% endif %}
 </section>
 {% endif %}

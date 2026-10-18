@@ -68,6 +68,12 @@ _inputs:
     type: text
     label: Caption
     comment: The small line under the figure.
+  bio_stats_note:
+    type: text
+    label: Stat band note
+    comment: >-
+      Small line under the stat band, e.g. "Figures [AS OF], from Zillow."
+      [AS OF] becomes "as of Month Year" from Settings → Figures as of.
   fact_box:
     type: array
     label: Fact box rows

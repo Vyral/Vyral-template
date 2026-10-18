@@ -27,6 +27,7 @@ bio_stats:
     stat_label: In team sales
   - stat_value: 0,000
     stat_label: Transactions
+bio_stats_note:
 fact_box_headline: Fact Box
 fact_box:
   - fact_label: Name

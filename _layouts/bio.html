@@ -9,13 +9,14 @@
 
 	<main>
 
+		{% include as-of-setup.html %}
 		{% include bio-hero.html %}
 
 		<div class="container-fluid bio-content">
 			<div class="bio-content-container">
 				<article class="post bio-post" itemscope itemtype="https://schema.org/Person">
 					<div class="post-content bio-body" itemprop="description" data-cms-edit="content">
-						{{ content }}
+						{{ content | replace: as_of_from, as_of_to }}
 					</div>
 				</article>
 
@@ -125,26 +126,26 @@
 		})();
 	</script>
 
-	{% comment %} ProfilePage / Person structured data for this bio page. {% endcomment %}
+	{% comment %} ProfilePage for this bio page. Same @id as the site-wide Person in head.html, so the two merge into one profile; sameAs lives there. {% endcomment %}
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
 		"@type": "ProfilePage",
 		"mainEntity": {
 			"@type": "Person",
-			"name": "{{ site.data.settings.client.name }}",
-			"jobTitle": "{{ page.subtitle | default: site.data.settings.about_me.subheadline }}",
+			"@id": "{{ site.data.settings.podcast.client_website_URL }}/about#person",
+			"name": {{ site.data.settings.client.name | jsonify }},
+			"jobTitle": {{ site.data.settings.client.job_title | default: page.subtitle | jsonify }},
 			"description": {{ page.excerpt | strip_html | strip_newlines | strip | jsonify }},
 			"image": "{{ site.data.settings.podcast.client_website_URL }}{{ page.bio_image }}",
 			"url": "{{ site.data.settings.podcast.client_website_URL }}{{ page.url | replace: 'index.html', '' }}",
 			"telephone": "{{ site.data.settings.client.phone_e164 }}",
 			"email": "{{ site.data.settings.client.email }}",
 			"worksFor": {
-				"@type": "RealEstateAgent",
-				"name": "{{ site.data.settings.client.brand }}",
-				"areaServed": [{% for area in page.areas_served %}"{{ area }}"{% unless forloop.last %},{% endunless %}{% endfor %}]
-			},
-			"sameAs": [{% if site.data.settings.client.socials.facebook %}"{{ site.data.settings.client.socials.facebook }}"{% endif %}{% if site.data.settings.client.socials.instagram %},"{{ site.data.settings.client.socials.instagram }}"{% endif %}{% if site.data.settings.client.socials.linkedin %},"{{ site.data.settings.client.socials.linkedin }}"{% endif %}{% if site.data.settings.client.socials.youtube %},"{{ site.data.settings.client.socials.youtube }}"{% endif %}{% if site.data.settings.client.socials.zillow %},"{{ site.data.settings.client.socials.zillow }}"{% endif %}]
+				"@type": "LocalBusiness",
+				"@id": "{{ site.data.settings.podcast.client_website_URL }}/#business",
+				"areaServed": {{ page.areas_served | jsonify }}
+			}
 		}
 	}
 	</script>

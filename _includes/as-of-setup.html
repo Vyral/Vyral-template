@@ -1,0 +1,22 @@
+{%- comment -%}
+  "As of" date stamp for figures that change (sales, reviews, team size).
+
+  Write [AS OF] in any About-page or FAQ text, Fact Box value or stat note,
+  usually as " ([AS OF])". Pages then pipe that text through
+  `replace: as_of_from, as_of_to`, which turns it into "as of October 2026"
+  using Settings → client → stats_as_of.
+
+  When stats_as_of is empty, " ([AS OF])" is removed entirely, so an undated
+  site never shows an empty "(as of )". Like the "Last reviewed" stamp, the
+  date is only ever set by hand: it claims someone checked the numbers.
+
+  Include this once before using as_of_from / as_of_to.
+{%- endcomment -%}
+{%- assign as_of_month = site.data.settings.client.stats_as_of | date: "%B %Y" | default: '' | strip -%}
+{%- if as_of_month != '' -%}
+  {%- assign as_of_from = '[AS OF]' -%}
+  {%- assign as_of_to = as_of_month | prepend: 'as of ' -%}
+{%- else -%}
+  {%- assign as_of_from = ' ([AS OF])' -%}
+  {%- assign as_of_to = '' -%}
+{%- endif -%}

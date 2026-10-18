@@ -1,3 +1,4 @@
+{% include as-of-setup.html %}
 {%- comment -%}
   FAQ section — shared by the homepage preview and the full /faq page.
   Pass is_preview_mode: false from /faq; it defaults to true (preview).
@@ -38,7 +39,7 @@
                     {% endif %}
 
                     <div class="faq-answer">
-                        {{ item.answer | markdownify }}
+                        {{ item.answer | replace: as_of_from, as_of_to | markdownify }}
                     </div>
                 </div>
             {% endfor %}

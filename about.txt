@@ -1,5 +1,43 @@
 ---
 layout: null
 ---
+{%- comment -%}
+  /about.txt: a plain-text copy of the About page for AI tools.
+  Everything is pulled from about.md (headline, summary, Fact Box,
+  communities and the Q&A sections), so it updates whenever the About page
+  is edited in CloudCannon. Edit the About page, not this file.
+{%- endcomment -%}
+{%- assign settings = site.data.settings -%}
+{%- assign site_root = settings.podcast.client_website_URL -%}
+{%- assign about = site.pages | where: "url", "/about" | first -%}
+{% include as-of-setup.html %}
+{%- capture nl %}
+{% endcapture -%}
+{%- capture heading_mark %}{{ nl }}## <h2{% endcapture -%}
+{%- capture blank3 %}{{ nl }}{{ nl }}{{ nl }}{% endcapture -%}
+{%- capture blank2 %}{{ nl }}{{ nl }}{% endcapture -%}
+{%- capture list_gap %}{{ nl }}  {{ nl }}{% endcapture -%}
+{%- assign about_lede = about.lede | default: about.excerpt | replace: as_of_from, as_of_to | markdownify | strip_html | strip_newlines | strip -%}
+{%- assign about_body = about.content | replace: as_of_from, as_of_to | markdownify | replace: '<h2', heading_mark | replace: '  <li>', '- <li>' | strip_html | replace: list_gap, nl | replace: blank3, blank2 | replace: blank3, blank2 | replace: '&nbsp;', '' | replace: '&amp;', '&' | replace: '&quot;', '"' | replace: '&rsquo;', '’' | replace: '&lsquo;', '‘' | replace: '&ldquo;', '“' | replace: '&rdquo;', '”' | replace: '&ndash;', '–' | replace: '&mdash;', '—' | replace: '&hellip;', '…' | strip -%}
+# {{ about.bio_headline | default: about.title }}
 
-{{ site.data.settings.about_me.plain_text_for_LLM }}
+{{ about.subtitle }}
+Source page: {{ site_root }}/about
+{%- if about.last_reviewed %}
+Last reviewed: {{ about.last_reviewed | date: "%B %-d, %Y" }}
+{%- endif %}
+
+## Summary
+
+{{ about_lede }}
+
+## {{ about.fact_box_headline | default: "Key facts" }}
+{% for fact in about.fact_box %}
+- {{ fact.fact_label | strip }}: {{ fact.fact_value | replace: as_of_from, as_of_to | strip_newlines | strip }}{% if fact.fact_source_url %} (source: {{ fact.fact_source | default: "link" }}, {{ fact.fact_source_url }}){% endif %}
+{%- endfor %}
+{% if about.areas_served.size > 0 %}
+## {{ about.areas_served_headline | default: "Communities served" }}
+
+{{ about.areas_served | join: ", " }}
+{% endif %}
+{{ about_body }}

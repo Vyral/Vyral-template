@@ -147,15 +147,59 @@
 
 
    <!-- Schema Markup for Client Details -->
+  {%- comment -%}
+    One client profile for the whole site. The About page's ProfilePage and
+    every post's video label point at the same @id, so search engines and AI
+    tools merge them into a single person instead of several competing ones.
+    Personal profiles go on the person; the company's own accounts go on the
+    business below, which names the person as its founder.
+  {%- endcomment -%}
+  {%- assign schema_client = site.data.settings.client -%}
+  {%- assign site_root = site.data.settings.podcast.client_website_URL -%}
+  {%- assign person_id = site_root | append: '/about#person' -%}
+  {%- assign business_id = site_root | append: '/#business' -%}
+  {%- assign person_links = '' | split: '' -%}
+  {%- if schema_client.socials.linkedin_personal and schema_client.socials.linkedin_personal != '' -%}{%- assign person_links = person_links | push: schema_client.socials.linkedin_personal -%}{%- endif -%}
+  {%- if schema_client.socials.instagram and schema_client.socials.instagram != '' -%}{%- assign person_links = person_links | push: schema_client.socials.instagram -%}{%- endif -%}
+  {%- if schema_client.socials.x and schema_client.socials.x != '' -%}{%- assign person_links = person_links | push: schema_client.socials.x -%}{%- endif -%}
+  {%- if schema_client.socials.zillow and schema_client.socials.zillow != '' -%}{%- assign person_links = person_links | push: schema_client.socials.zillow -%}{%- endif -%}
+  {%- assign business_links = '' | split: '' -%}
+  {%- if schema_client.socials.facebook and schema_client.socials.facebook != '' -%}{%- assign business_links = business_links | push: schema_client.socials.facebook -%}{%- endif -%}
+  {%- if schema_client.socials.instagram_business and schema_client.socials.instagram_business != '' -%}{%- assign business_links = business_links | push: schema_client.socials.instagram_business -%}{%- endif -%}
+  {%- if schema_client.socials.linkedin and schema_client.socials.linkedin != '' -%}{%- assign business_links = business_links | push: schema_client.socials.linkedin -%}{%- endif -%}
+  {%- if schema_client.socials.youtube and schema_client.socials.youtube != '' -%}{%- assign business_links = business_links | push: schema_client.socials.youtube -%}{%- endif -%}
+  {%- if schema_client.socials.tiktok and schema_client.socials.tiktok != '' -%}{%- assign business_links = business_links | push: schema_client.socials.tiktok -%}{%- endif -%}
+  {%- assign has_talk = false -%}{%- if schema_client.featured_talk.url and schema_client.featured_talk.url != '' -%}{%- assign has_talk = true -%}{%- endif -%}
+  {%- assign has_podcast = false -%}{%- if site.data.settings.podcast.apple_podcast_link and site.data.settings.podcast.apple_podcast_link != '' -%}{%- assign has_podcast = true -%}{%- endif %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "{{ site.data.settings.client.name }}",
-    "jobTitle": "{{ site.data.settings.about_me.subheadline }}",
-    "url": "{{ site.data.settings.podcast.client_website_URL }}",
-    "sameAs": [{% if site.data.settings.client.socials.facebook != null %}"{{ site.data.settings.client.socials.facebook }}"{% endif %}{% if site.data.settings.client.socials.instagram != null %},"{{ site.data.settings.client.socials.instagram }}"{% endif %}{% if site.data.settings.client.socials.linkedin != null %},"{{ site.data.settings.client.socials.linkedin }}"{% endif %}{% if site.data.settings.client.socials.x != null %},"{{ site.data.settings.client.socials.x }}"{% endif %}
-    ]
+    "@id": "{{ person_id }}",
+    "name": {{ schema_client.name | jsonify }},
+    "jobTitle": {{ schema_client.job_title | default: site.data.settings.about_me.subheadline | jsonify }},
+    "url": "{{ site_root }}/about",
+    "image": "{{ site_root }}{{ site.data.settings.blog.author.image }}",
+    "worksFor": { "@id": "{{ business_id }}" },
+    {%- if has_talk or has_podcast %}
+    "subjectOf": [
+      {%- if has_talk %}
+      {
+        "@type": "CreativeWork",
+        "name": {{ schema_client.featured_talk.title | default: 'Featured talk' | jsonify }},
+        "url": "{{ schema_client.featured_talk.url }}"
+      }{% if has_podcast %},{% endif %}
+      {%- endif %}
+      {%- if has_podcast %}
+      {
+        "@type": "PodcastSeries",
+        "name": {{ site.data.settings.podcast.title | jsonify }},
+        "url": "{{ site.data.settings.podcast.apple_podcast_link }}"
+      }
+      {%- endif %}
+    ],
+    {%- endif %}
+    "sameAs": {{ person_links | jsonify }}
   }
   </script>
 
@@ -163,7 +207,10 @@
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "{{ site.data.settings.client.brand }}",
+    "@id": "{{ business_id }}",
+    "name": {{ site.data.settings.client.brand | jsonify }},
+    "founder": { "@id": "{{ person_id }}" },
+    "sameAs": {{ business_links | jsonify }},
     "image": "{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}",
     "url": "{{ site.data.settings.podcast.client_website_URL }}",
     "telephone": "{{ site.data.settings.client.phone_e164 }}",
@@ -193,14 +240,20 @@
   markdownify -> strip_html turns the markdown answer into plain text (so `**bold**`
   does not leak in), and normalize_whitespace collapses the resulting newlines into
   single spaces (so paragraphs do not jam together as "reviews.**As of September").
+
+  Only output on the /faq page, the one page that shows every question in
+  full: Google requires FAQ markup to match what readers can see. [AS OF]
+  markers become "as of Month Year" (see as-of-setup.html).
 {%- endcomment -%}
+{% include as-of-setup.html %}
 {%- assign faq_schema_items = site.data.faqs.faqs_questions | where: "show_on_page", true -%}
-{%- if site.data.faqs.show_faqs_section and faq_schema_items.size > 0 %}
+{%- if site.data.faqs.show_faqs_section and faq_schema_items.size > 0 and page.url == '/faq' %}
   <!-- Query FAQs for main page FAQs -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "url": "{{ site.data.settings.podcast.client_website_URL }}/faq",
     "mainEntity": [
       {%- for questions in faq_schema_items %}
       {
@@ -208,7 +261,7 @@
         "name": {{ questions.question | markdownify | strip_html | normalize_whitespace | strip | jsonify }},
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": {{ questions.answer | markdownify | strip_html | normalize_whitespace | strip | jsonify }}
+          "text": {{ questions.answer | replace: as_of_from, as_of_to | markdownify | strip_html | replace: '&amp;', '&' | replace: '&rsquo;', '’' | replace: '&lsquo;', '‘' | replace: '&ldquo;', '“' | replace: '&rdquo;', '”' | replace: '&quot;', '"' | replace: '&ndash;', '–' | replace: '&mdash;', '—' | replace: '&hellip;', '…' | normalize_whitespace | strip | jsonify }}
         }
       }{% unless forloop.last %},{% endunless %}
       {%- endfor %}
@@ -218,12 +271,16 @@
 {%- endif -%}
 
 {% if page.layout == 'post' %}
-  {% if page.post_faq_enabled %}
-    <!-- Query FAQs for posts -->
+  {%- comment -%}
+    The post's own Q&A, shown under the article, labeled as an FAQPage
+    (QAPage is only for single-question forum pages).
+  {%- endcomment -%}
+  {% if page.post_faq_enabled and page.post_faqs.size > 0 %}
     <script type="application/ld+json">
     {
     "@context": "https://schema.org",
-    "@type": "QAPage",
+    "@type": "FAQPage",
+    "url": "{{ page_share_url }}",
     "mainEntity": [
       {% for questionposts in page.post_faqs %}
             {
@@ -231,7 +288,7 @@
               "name": {{ questionposts.question | markdownify | strip_html | normalize_whitespace | strip | jsonify }},
               "acceptedAnswer": {
               "@type": "Answer",
-              "text": {{ questionposts.answer | markdownify | strip_html | normalize_whitespace | strip | jsonify }}
+              "text": {{ questionposts.answer | markdownify | strip_html | replace: '&amp;', '&' | replace: '&rsquo;', '’' | replace: '&lsquo;', '‘' | replace: '&ldquo;', '“' | replace: '&rdquo;', '”' | replace: '&quot;', '"' | replace: '&ndash;', '–' | replace: '&mdash;', '—' | replace: '&hellip;', '…' | normalize_whitespace | strip | jsonify }}
               }
             }{% unless forloop.last %},{% endunless %}
           {% endfor %}
@@ -242,7 +299,7 @@
 
   {%- comment -%}
     Video label for the post's YouTube video, so Google and AI tools can list it
-    as a video by the client. On by default; untick "Video label" on a post to
+    as a video by the client (linked to the site-wide profile). On by default; untick "Video label" on a post to
     turn it off. Posts without a YouTube code get nothing.
   {%- endcomment -%}
   {%- assign video_root = site.data.settings.podcast.client_website_URL -%}
@@ -259,16 +316,8 @@
     "url": "https://www.youtube.com/watch?v={{ yt_id }}",
     "mainEntityOfPage": "{{ page_share_url }}",
     "inLanguage": "en-US",
-    "creator": {
-      "@type": "Person",
-      "name": {{ site.data.settings.client.name | jsonify }},
-      "url": "{{ video_root }}/about"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": {{ site.data.settings.client.brand | jsonify }},
-      "url": "{{ video_root }}"
-    }
+    "creator": { "@id": "{{ person_id }}" },
+    "publisher": { "@id": "{{ business_id }}" }
   }
   </script>
   {% endunless %}{% endif %}
