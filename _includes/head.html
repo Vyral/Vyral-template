@@ -239,6 +239,39 @@
     }
     </script>
   {% endif %}
+
+  {%- comment -%}
+    Video label for the post's YouTube video, so Google and AI tools can list it
+    as a video by the client. On by default; untick "Video label" on a post to
+    turn it off. Posts without a YouTube code get nothing.
+  {%- endcomment -%}
+  {%- assign video_root = site.data.settings.podcast.client_website_URL -%}
+  {% if yt_id and yt_id != '' %}{% unless page.video_label == false %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": {{ page.title | jsonify }},
+    "description": {{ page.episode_description | default: page.excerpt | default: page.subtitle | default: page.title | strip_html | strip_newlines | strip | jsonify }},
+    "thumbnailUrl": [{% if page.youtube_alternate_image and page.youtube_alternate_image != '' %}"{{ video_root }}{{ page.youtube_alternate_image | strip }}", {% endif %}"https://i.ytimg.com/vi/{{ yt_id }}/hqdefault.jpg"],
+    "uploadDate": "{{ page.date | date_to_xmlschema }}",
+    "embedUrl": "https://www.youtube.com/embed/{{ yt_id }}",
+    "url": "https://www.youtube.com/watch?v={{ yt_id }}",
+    "mainEntityOfPage": "{{ page_share_url }}",
+    "inLanguage": "en-US",
+    "creator": {
+      "@type": "Person",
+      "name": {{ site.data.settings.client.name | jsonify }},
+      "url": "{{ video_root }}/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ site.data.settings.client.brand | jsonify }},
+      "url": "{{ video_root }}"
+    }
+  }
+  </script>
+  {% endunless %}{% endif %}
 {% endif %}
 
 {% for quote in site.data.settings.testimonials.quotes %}

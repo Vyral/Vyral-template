@@ -8,6 +8,13 @@ _inputs:
   enclosure_time:
     type: text
     comment: "File size in bytes. Example: 5650889"
+  video_label:
+    type: switch
+    label: Video label (for Google & AI)
+    comment: >-
+      Adds a hidden label telling Google and AI tools this post has a video by
+      the client, with its title, date and thumbnail. Leave on for every post
+      with a YouTube code; it does nothing on posts without one.
   title:
     type: text
     label: Page title

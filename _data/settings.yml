@@ -180,11 +180,16 @@ blog:
       url: '#'
   author:
     name: John Doe
-    name_link: mailto:johndoe@test.com
+    name_link: /about
     image: /img/john-doe.png
     bio: >-
       This is where you have 1-2 sentences to explain why someone should listen
       to you.
+  learn_more_box:
+    enabled: true
+    headline:
+    markdown:
+    show_faq_link: true
   CTA_content_box:
     sync_with_CTAs: true
     title_markdown: |
@@ -719,6 +724,32 @@ _inputs:
     comment: >-
       Resize to 1500px or smaller, and run images through tinypng.com before
       uploading for website performance.
+  blog.learn_more_box:
+    label: Learn more box (end of every post)
+    comment: >-
+      A short box after Watch More on every post that links to the About and
+      FAQ pages, so readers and AI tools connect each post back to the client.
+  blog.learn_more_box.enabled:
+    type: switch
+    label: Show the Learn more box
+  blog.learn_more_box.headline:
+    type: text
+    comment: Optional. Leave blank for "Learn more about [client name]".
+  blog.learn_more_box.markdown:
+    type: markdown
+    label: Custom text
+    comment: >-
+      Optional. Leave blank to use the default sentence, which names the client,
+      brand and market and links to the About and FAQ pages.
+  blog.learn_more_box.show_faq_link:
+    type: switch
+    label: Include the FAQ link
+    comment: Only used with the default sentence, and only when the FAQ section is on.
+  blog.author.name_link:
+    label: Author name link
+    comment: >-
+      Where the author's name on each post links to. Keep /about so readers and
+      AI tools connect every post to the About page.
   blog.CTA_main_box.sync_with_CTA_1:
     comment: >-
       By default, this section will sync with the first CTA in the settings

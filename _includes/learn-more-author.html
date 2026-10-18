@@ -1,0 +1,33 @@
+{% comment %}
+  "Learn more about [client]" box at the end of every post, after Watch More.
+  Points readers (and AI tools) from each post back to the About and FAQ
+  pages, so every post is tied to the person who made it.
+
+  Settings → blog → learn_more_box:
+    enabled        switch the box on or off for every post
+    headline       optional; blank = "Learn more about [client name]"
+    markdown       optional custom text; blank = the default sentence below
+    show_faq_link  adds the FAQ link to the default sentence
+
+  The About link only appears when the site has an /about page, and the FAQ
+  link only when the FAQ section is switched on.
+{% endcomment %}
+{% assign lm = site.data.settings.blog.learn_more_box %}
+{% if lm.enabled %}
+{% assign lm_client = site.data.settings.client %}
+{% assign lm_about = site.pages | where: "url", "/about" | first %}
+{% assign lm_show_faq = false %}
+{% if lm.show_faq_link and site.data.faqs.show_faqs_section %}{% assign lm_show_faq = true %}{% endif %}
+<aside class="learn-more-author">
+    <p class="learn-more-title">{% if lm.headline and lm.headline != '' %}{{ lm.headline }}{% else %}Learn more about {{ lm_client.name }}{% endif %}</p>
+    {% if lm.markdown and lm.markdown != '' %}
+    {{ lm.markdown | markdownify }}
+    {% else %}
+    <p>
+        Get to know {{ lm_client.name }} of {{ lm_client.brand }}, serving {{ lm_client.market }}.
+        {% if lm_about %}Read <a href="{{ site.baseurl }}/about">{{ lm_client.name }}’s full profile</a>{% if lm_show_faq %}, or see{% else %}.{% endif %}{% elsif lm_show_faq %}See{% endif %}
+        {% if lm_show_faq %}<a href="{{ site.baseurl }}/faq">answers to the questions people ask most</a>.{% endif %}
+    </p>
+    {% endif %}
+</aside>
+{% endif %}

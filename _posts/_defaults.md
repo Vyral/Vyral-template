@@ -12,6 +12,7 @@ hidden: false
 use_youtube_image: true
 youtube_alternate_image:
 youtube_code:
+video_label: true
 post_faq_enabled: false
 post_faqs:
   - question: Add question here. This is a long question that might need to be wrapped or formatted differently.
