@@ -11,10 +11,10 @@
 
     <div class="bio-hero-text">
 
-      <h1 class="bio-headline" itemprop="name headline" data-cms-bind="#bio_headline">{{ page.bio_headline | default: page.title }}</h1>
+      <h1 class="bio-headline" data-cms-bind="#bio_headline">{{ page.bio_headline | default: page.title }}</h1>
 
       {% if page.subtitle %}
-      <h2 class="bio-subheadline" itemprop="jobTitle" data-cms-bind="#subtitle">{{ page.subtitle }}</h2>
+      <h2 class="bio-subheadline" data-cms-bind="#subtitle">{{ page.subtitle }}</h2>
       {% endif %}
 
       {% if page.lede %}

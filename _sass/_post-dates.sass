@@ -1,0 +1,30 @@
+// "Published · Last updated" line under the post title — see _includes/post-dates.html
+// Quiet by design, like the "Last reviewed" stamp on the About and FAQ pages.
+
+.post-dates
+  font-family: $bodyfont
+  font-size: 1.5rem
+  font-weight: 300
+  line-height: 1.5
+  color: #6b6b6b
+  text-align: center
+  margin: -2.5rem 0 3.5rem
+  padding: 0
+
+  .post-dates-sep
+    margin: 0 0.8rem
+
+  time
+    white-space: nowrap
+
+@media only screen and (max-width: 775px)
+  .post-dates
+    font-size: 1.4rem
+    margin: 0 0 2rem
+
+    // On phones the two dates stack instead of wrapping around the dot
+    span
+      display: block
+
+    .post-dates-sep
+      display: none

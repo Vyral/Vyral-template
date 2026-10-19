@@ -61,8 +61,10 @@
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}</title>
   <meta name="description" content="{{ page_desc | escape }}">
 
-  <meta content="index, follow" name="robots">
-  <meta content="index, follow" name="googlebot">
+  {%- comment -%} Hidden posts (hidden: true) stay reachable but ask search engines not to index them. {%- endcomment -%}
+  {%- if page.hidden -%}{%- assign robots_rule = 'noindex, follow' -%}{%- else -%}{%- assign robots_rule = 'index, follow, max-image-preview:large' -%}{%- endif %}
+  <meta content="{{ robots_rule }}" name="robots">
+  <meta content="{{ robots_rule }}" name="googlebot">
   <meta name="copyright" content="Vyral Marketing, Inc." />
 
   <script src="/js/lightbox.js" type="text/javascript" defer></script>
@@ -110,6 +112,19 @@
   <meta property="og:description" content="{{ page_desc | escape }}">
   <meta property="og:url" content="{{ page_share_url }}">
   <meta property="og:image" content="{{ page_share_image }}">
+  <meta property="og:site_name" content="{{ site.data.settings.client.name }} | {{ site.data.settings.client.brand }}">
+  <meta property="og:locale" content="en_US">
+  {%- if page.is_post %}
+  {%- comment -%} Same dates as the visible "Published · Last updated" line and the Article label. {%- endcomment -%}
+  {%- assign post_modified = page.last_modified_at | default: page.date %}
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:modified_time" content="{{ post_modified | date_to_xmlschema }}">
+  <meta property="og:updated_time" content="{{ post_modified | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.data.settings.podcast.client_website_URL }}/about">
+  {%- else %}
+  <meta property="og:type" content="website">
+  {%- endif %}
 
   {% if site.data.settings.fb-admins %}
     <meta property="fb:admins" content="{{ site.data.settings.fb-admins }}">
@@ -212,6 +227,7 @@
     "founder": { "@id": "{{ person_id }}" },
     "sameAs": {{ business_links | jsonify }},
     "image": "{{ site.data.settings.podcast.client_website_URL }}{{site.data.settings.share_image}}",
+    "logo": "{{ site.data.settings.podcast.client_website_URL }}/siteicon.png",
     "url": "{{ site.data.settings.podcast.client_website_URL }}",
     "telephone": "{{ site.data.settings.client.phone_e164 }}",
     "address": {
@@ -298,6 +314,32 @@
   {% endif %}
 
   {%- comment -%}
+    Article label for every post (BlogPosting is Google's Article type for blog
+    posts). Its dates match the visible "Published · Last updated" line; it
+    names the client as author and the business as publisher through the same IDs as
+    the site-wide profile, and points to the post's video when there is one.
+  {%- endcomment -%}
+  {%- assign article_modified = page.last_modified_at | default: page.date %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "{{ page_share_url }}#article",
+    "headline": {{ page.title | strip | truncate: 110 | jsonify }},
+    "description": {{ page_desc | jsonify }},
+    "image": ["{{ page_share_image }}"],
+    "datePublished": "{{ page.date | date_to_xmlschema }}",
+    "dateModified": "{{ article_modified | date_to_xmlschema }}",
+    "author": { "@id": "{{ person_id }}" },
+    "publisher": { "@id": "{{ business_id }}" },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ page_share_url }}" },
+    "url": "{{ page_share_url }}",
+    "inLanguage": "en-US"{% if yt_id and yt_id != '' %}{% unless page.video_label == false %},
+    "video": { "@id": "{{ page_share_url }}#video" }{% endunless %}{% endif %}
+  }
+  </script>
+
+  {%- comment -%}
     Video label for the post's YouTube video, so Google and AI tools can list it
     as a video by the client (linked to the site-wide profile). On by default; untick "Video label" on a post to
     turn it off. Posts without a YouTube code get nothing.
@@ -308,6 +350,7 @@
   {
     "@context": "https://schema.org",
     "@type": "VideoObject",
+    "@id": "{{ page_share_url }}#video",
     "name": {{ page.title | jsonify }},
     "description": {{ page.episode_description | default: page.excerpt | default: page.subtitle | default: page.title | strip_html | strip_newlines | strip | jsonify }},
     "thumbnailUrl": [{% if page.youtube_alternate_image and page.youtube_alternate_image != '' %}"{{ video_root }}{{ page.youtube_alternate_image | strip }}", {% endif %}"https://i.ytimg.com/vi/{{ yt_id }}/hqdefault.jpg"],
@@ -322,6 +365,25 @@
   </script>
   {% endunless %}{% endif %}
 {% endif %}
+
+{%- comment -%}
+  Breadcrumb trail (Home › page) on every page except the home page and the
+  blog's paginated list pages. Posts sit directly under Home because the blog
+  list is the home page.
+{%- endcomment -%}
+{%- assign crumb_url = page.url | replace: 'index.html', '' -%}
+{%- if crumb_url != '/' and page.title and page.title != '' %}{% unless crumb_url contains '/page' and paginator %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ site.data.settings.podcast.client_website_URL }}/" },
+    { "@type": "ListItem", "position": 2, "name": {{ page.title | strip | jsonify }}, "item": "{{ page_share_url }}" }
+  ]
+}
+</script>
+{% endunless %}{% endif %}
 
 {% for quote in site.data.settings.testimonials.quotes %}
   {% if quote.video.enabled %}

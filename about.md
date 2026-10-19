@@ -2,6 +2,7 @@
 layout: bio
 title: About John Doe
 permalink: /about
+last_modified_at:
 last_reviewed:
 subtitle: Broker-in-Charge & Owner, Company Name, Inc.
 bio_headline: 'John Doe: Test Market Real Estate Broker and Owner of Company Name, Inc.'

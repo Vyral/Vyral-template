@@ -1,0 +1,20 @@
+{% comment %}
+  Visible "Published · Last updated" line under each post's title.
+
+  Published    = the post's `date`.
+  Last updated = `last_modified_at`, set by hand in CloudCannon ("Last updated")
+                 whenever the post's text meaningfully changes. When it is empty
+                 the post's own date is used, so a new post reads
+                 "Published X · Last updated X" until someone edits it.
+
+  The same two dates feed the Article label (datePublished / dateModified),
+  the article:published_time / article:modified_time tags and the sitemap's
+  <lastmod>, so every place agrees.
+{% endcomment %}
+{% assign post_published = page.date %}
+{% assign post_updated = page.last_modified_at | default: page.date %}
+<p class="post-dates">
+    <span>Published <time datetime="{{ post_published | date_to_xmlschema }}">{{ post_published | date: "%B %-d, %Y" }}</time></span>
+    <span class="post-dates-sep" aria-hidden="true">·</span>
+    <span>Last updated <time datetime="{{ post_updated | date_to_xmlschema }}">{{ post_updated | date: "%B %-d, %Y" }}</time></span>
+</p>

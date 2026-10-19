@@ -8,6 +8,13 @@ _inputs:
   enclosure_time:
     type: text
     comment: "File size in bytes. Example: 5650889"
+  last_modified_at:
+    type: date
+    label: Last updated
+    comment: >-
+      Set this when you make a meaningful edit to the post's text. It shows as
+      "Last updated" under the title and tells Google and AI tools the post was
+      refreshed. Leave empty on a new post (it then uses the publish date).
   video_label:
     type: switch
     label: Video label (for Google & AI)

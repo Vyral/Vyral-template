@@ -14,8 +14,8 @@
 
 		<div class="container-fluid bio-content">
 			<div class="bio-content-container">
-				<article class="post bio-post" itemscope itemtype="https://schema.org/Person">
-					<div class="post-content bio-body" itemprop="description" data-cms-edit="content">
+				<article class="post bio-post">
+					<div class="post-content bio-body" data-cms-edit="content">
 						{{ content | replace: as_of_from, as_of_to }}
 					</div>
 				</article>
@@ -131,7 +131,8 @@
 	{
 		"@context": "https://schema.org",
 		"@type": "ProfilePage",
-		"mainEntity": {
+		{% if page.last_modified_at %}"dateModified": "{{ page.last_modified_at | date_to_xmlschema }}",
+		{% endif %}		"mainEntity": {
 			"@type": "Person",
 			"@id": "{{ site.data.settings.podcast.client_website_URL }}/about#person",
 			"name": {{ site.data.settings.client.name | jsonify }},
