@@ -1,12 +1,16 @@
+{% comment %}
+  Post Q&A. Heading outline: the post title is the page's only H1, this
+  section is an H2, and each question is an H3.
+{% endcomment %}
 <div class="faq-container-post">
     <section class="faq-post">
         <div class="faqs-header-post">
-            <h1 class="post-title">Frequently Asked Questions</h1>
+            <h2 class="post-title faq-post-heading">Frequently Asked Questions</h2>
         </div>
 
         {% for itempost in page.post_faqs %}
             <div class="faq-item-post">
-                <h4>{{ itempost.question }}</h4>
+                <h3>{{ itempost.question }}</h3>
                 {{ itempost.answer | markdownify }}
             </div>
         {% endfor %}
@@ -16,7 +20,7 @@
 
  <script>
     // Simple toggle for FAQ answers
-    document.querySelectorAll(".faq-item-post h4").forEach(item => {
+    document.querySelectorAll(".faq-item-post h3").forEach(item => {
       item.addEventListener("click", () => {
         item.parentElement.classList.toggle("active");
       });
